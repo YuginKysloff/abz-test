@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="{{ config('app.locale') }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>{{ config('app.name') }}</title>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    </head>
+    <body role="document">
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li {{ (url()->current() == url('/')) ? 'class=active' : '' }}>
+                            <a href="{{ url('/') }}">Сотрудники</a>
+                        </li>
+                        @if (Auth::guest())
+                            <li {{ (url()->current() == route('login')) ? 'class=active' : '' }}>
+                                <a href="{{ route('login') }}">Войти</a>
+                            </li>
+                        @else
+                            <li {{ (url()->current() == route('listWorkers')) ? 'class=active' : '' }}>
+                                <a  href="{{ route('listWorkers') }}">Редактировать</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Выход
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        @yield('content')
+
+    <script src="{{ asset('js/app.js') }}"></script>
+    </body>
+</html>

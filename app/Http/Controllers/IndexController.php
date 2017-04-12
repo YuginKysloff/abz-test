@@ -8,6 +8,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return view('workers');
+        return view('tree');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Worker;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        $data['workers'] = Worker::paginate(10);
+
+        return view('admin.workers', $data);
     }
 
     /**
@@ -43,9 +46,11 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $data['worker'] = Worker::findOrFail($request->id);
+        $view['html'] = view('admin.worker_info', $data)->render();
+        return response()->json($view);
     }
 
     /**

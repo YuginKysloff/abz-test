@@ -26,6 +26,9 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
+                        <li {{ (url()->current() == url('/example')) ? 'class=active' : '' }}>
+                            <a href="{{ url('/example') }}">Шаблон</a>
+                        </li>
                         <li {{ (url()->current() == url('/')) ? 'class=active' : '' }}>
                             <a href="{{ url('/') }}">Резюме</a>
                         </li>
@@ -56,6 +59,8 @@
 
         @yield('content')
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    @section('scripts')
+        <script src="{{ asset('js/app.js') }}"></script>
+    @show
     </body>
 </html>

@@ -1,6 +1,10 @@
 <?php
 
-Route::get('/', 'IndexController@index');
+Route::get('/', function () {
+    return view('resume');
+});
+
+Route::get('/workers', 'IndexController@index')->name('workersTree');
 
 Auth::routes();
 
@@ -15,5 +19,3 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/destroy/{id}', 'AdminController@destroy');
 
 });
-
-//Route::get('/home', 'HomeController@index');

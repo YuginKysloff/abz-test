@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name') }}</title>
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        @section('head')
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+            <title>{{ config('app.name') }}</title>
+            <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        @show
     </head>
     <body role="document">
         <div class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -25,7 +27,10 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li {{ (url()->current() == url('/')) ? 'class=active' : '' }}>
-                            <a href="{{ url('/') }}">Сотрудники</a>
+                            <a href="{{ url('/') }}">Резюме</a>
+                        </li>
+                        <li {{ (url()->current() == route('workersTree')) ? 'class=active' : '' }}>
+                            <a href="{{ route('workersTree') }}">Сотрудники</a>
                         </li>
                         @if (Auth::guest())
                             <li {{ (url()->current() == route('login')) ? 'class=active' : '' }}>

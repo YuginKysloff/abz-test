@@ -12,4 +12,17 @@ class Post extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * Get workers for the post.
+     */
+    public function workers()
+    {
+        return $this->hasMany('App\Worker');
+    }
+
+    public function bosses()
+    {
+        return $this->hasMany('App\Worker', 'parent_post_id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Worker;
+use App\Post;
 
 class AdminController extends Controller
 {
@@ -14,7 +15,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $data['workers'] = Worker::paginate(10);
+        $data['workers'] = Worker::with('post')->paginate(10);
 
         return view('admin.workers', $data);
     }
@@ -26,7 +27,9 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        $data['posts'] = Post::all();
+
+        return view('admin.worker_create', $data);
     }
 
     /**
@@ -37,7 +40,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('listWorkers')->with('success', 'Новый пользователь добавлен');
     }
 
     /**
@@ -61,7 +64,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['worker'] = Worker::findOrFail($id);
+        $data['posts'] = Post::all();
+        return view('admin.worker_edit', $data);
     }
 
     /**
@@ -71,9 +76,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        return redirect()->route('listWorkers')->with('success', 'Новая информация сохранена');
     }
 
     /**
@@ -84,6 +89,6 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect()->back()->with('success', 'Запись удалена');
     }
 }

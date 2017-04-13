@@ -12,4 +12,17 @@ class Worker extends Model
      * @var array
      */
     protected $dates = ['created_at', 'updated_at'];
+
+    /**
+     * Get the post that owns the worker.
+     */
+    public function post()
+    {
+        return $this->belongsTo('App\Post');
+    }
+
+    public function bossPost()
+    {
+        return $this->belongsTo('App\Post', 'parent_post_id');
+    }
 }

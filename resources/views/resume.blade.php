@@ -10,7 +10,7 @@
         <div class="resume">
             <p class="resume__body">
                 <a href="https://hh.ru/resume/7aab3734ff02f3b4be0039ed1f596272553047" target="_blank">
-                    Оригинал резюме на hh.ru
+                    <strong>Оригинал резюме на hh.ru</strong>
                 </a>
             <p class="resume__title">Киселев Юрий Викторович</p>
             <p>Мужчина, 40 лет, родился

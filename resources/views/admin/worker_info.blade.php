@@ -7,8 +7,8 @@
             </div>
             <div class="modal-body">
                 <h1>{!! $worker->name !!}</h1>
-                <h2>{!! $worker->post_id !!}</h2>
-                <p><strong>Начальник:</strong> {{ $worker->parent_post_id }}</p>
+                <h2>{!! $worker->post->name !!}</h2>
+                <p><strong>Начальник:</strong> {{ $worker->bossPost->name }}</p>
                 <p><strong>Зарплата:</strong> {{ $worker->salary }}</p>
                 <p><strong>Принят:</strong> {{ $worker->created_at->format('d-m-Y') }}</p>
                 <p><strong>Последние изменения:</strong> {{ $worker->updated_at->format('d-m-Y') }}</p>

@@ -20,9 +20,4 @@ class Post extends Model
     {
         return $this->hasMany('App\Worker');
     }
-
-    public function bosses()
-    {
-        return $this->hasMany('App\Worker', 'parent_post_id');
-    }
 }

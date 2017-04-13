@@ -15,8 +15,8 @@ class CreateWorkersTable extends Migration
     {
         Schema::create('workers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('pid')->unsigned()->default(0);
             $table->tinyInteger('post_id')->unsigned()->default(0);
-            $table->tinyInteger('parent_post_id')->unsigned()->default(0);
             $table->string('name', 100);
             $table->smallInteger('salary')->unsigned()->default(0);
             $table->timestamps();

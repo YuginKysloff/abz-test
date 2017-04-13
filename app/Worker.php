@@ -20,9 +20,4 @@ class Worker extends Model
     {
         return $this->belongsTo('App\Post');
     }
-
-    public function bossPost()
-    {
-        return $this->belongsTo('App\Post', 'parent_post_id');
-    }
 }

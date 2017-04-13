@@ -6,20 +6,20 @@
             <div class="main">
                 @if(session()->has('success'))
                     <div class="alert alert-success fade in">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <strong>{{ session('success') }}</strong>
                     </div>
                 @endif
                 @if(session()->has('error'))
                     <div class="alert alert-danger fade in">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <strong>{{ session('error') }}</strong>
                     </div>
                 @endif
                 <h1 class="page-header">Добавление сотрудника</h1>
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form method="post" action="{{ route('storeWorker') }}" role="form">
+                        <form name="create-worker" method="post" action="{{ route('storeWorker') }}" role="form">
                             <div class="form-group">
                                 <label for="name">Введите ФИО</label>
                                 <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
@@ -28,7 +28,15 @@
                                 <label for="post">Выберите должность</label>
                                 <select class="form-control" name="post" id="post">
                                     @foreach($posts as $post)
-                                        <option value="{{ $post->id }}" {{ ($post->id == old('id')) ? 'selected' : '' }}>{{ $post->name }}</option>
+                                        <option value="{{ $post->id }}" {{ ($post->id == old('id')) ? 'selected' : '' }} {{ ($post->id == 1) ? 'disabled' : '' }}>{{ $post->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="post">Выберите начальника</label>
+                                <select class="form-control" name="boss" id="boss">
+                                    @foreach($workers as $worker)
+                                        <option value="{{ $worker->id }}" {{ ($worker->id == old('id')) ? 'selected' : '' }}>{{ $worker->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

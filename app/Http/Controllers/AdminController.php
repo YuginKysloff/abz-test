@@ -16,7 +16,6 @@ class AdminController extends Controller
     public function index()
     {
         $data['workers'] = Worker::with('post')->paginate(10);
-
         return view('admin.workers', $data);
     }
 
@@ -28,14 +27,28 @@ class AdminController extends Controller
     public function create()
     {
         $data['posts'] = Post::all();
-
+        $data['workers'] = Worker::where('post_id', 1)->get();
         return view('admin.worker_create', $data);
+    }
+
+    public function getBosses(Request $request)
+    {
+        $bosses = Worker::where('post_id', $request->post_id - 1)->get();
+
+        $view['html'] = '';
+        foreach($bosses as $boss) {
+            $view['html'] .= "<option value=\"$boss->id\">$boss->name</option>";
+        }
+
+//        dump($view);
+//        $view['html'] = view('admin.worker_info', $data)->render();
+        return response()->json($view);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -46,12 +59,16 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
     {
-        $data['worker'] = Worker::findOrFail($request->id);
+        $data['worker'] = Worker::with('post')->join('workers as w2', 'workers.pid', '=', 'w2.id')->
+        join('posts', 'w2.post_id', '=', 'posts.id')->
+        where('workers.id', $request->id)->
+        select('workers.*', 'w2.name as boss_name', 'posts.name as boss_post')->
+        first();
         $view['html'] = view('admin.worker_info', $data)->render();
         return response()->json($view);
     }
@@ -59,7 +76,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -72,8 +89,8 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -84,7 +101,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

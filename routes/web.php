@@ -1,9 +1,5 @@
 <?php
 
-Route::get('/example', function () {
-    return view('example');
-});
-
 Route::get('/', function () {
     return view('resume');
 });
@@ -16,6 +12,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::get('/', 'AdminController@index')->name('listWorkers');
     Route::get('/create', 'AdminController@create')->name('formCreateWorker');
+    Route::post('/get_bosses', 'AdminController@getBosses')->name('getBosses');
     Route::post('/store', 'AdminController@store')->name('storeWorker');
     Route::post('/show', 'AdminController@show')->name('showWorker');
     Route::get('/edit/{id}', 'AdminController@edit')->name('formEditWorker');

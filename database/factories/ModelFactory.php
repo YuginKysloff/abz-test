@@ -15,7 +15,7 @@ $factory->define(App\Worker::class, function () {
 
     return [
         'post_id' => $post_id,
-        'parent_post_id' => $post_id - 1,
+        'pid' => $post_id - 1,
         'name' => $faker->name,
         'salary' => mt_rand(100, 1000)
     ];

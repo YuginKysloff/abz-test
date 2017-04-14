@@ -36,7 +36,7 @@
                                         @foreach($workers as $worker)
                                             <tr>
                                                 <td class="worker_name" data-id="{{ $worker->id }}">
-                                                    <a title="Подробный просмотр">{{ $worker->name }}</a>
+                                                    <button class="btn btn-xs btn-link" title="Подробный просмотр">{{ $worker->name }}</button>
                                                 </td>
                                                 <td>{{ $worker->post->name }}</td>
                                                 <td>{{ $worker->salary }}</td>

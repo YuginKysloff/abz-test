@@ -31,6 +31,12 @@ class AdminController extends Controller
         return view('admin.worker_create', $data);
     }
 
+    /**
+     * Get possible bosses for given worker.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function getBosses(Request $request)
     {
         $bosses = Worker::where('post_id', $request->post_id - 1)->get();
@@ -39,9 +45,6 @@ class AdminController extends Controller
         foreach($bosses as $boss) {
             $view['html'] .= "<option value=\"$boss->id\">$boss->name</option>";
         }
-
-//        dump($view);
-//        $view['html'] = view('admin.worker_info', $data)->render();
         return response()->json($view);
     }
 
@@ -53,6 +56,19 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string',
+            'salary' => 'required|numeric|min:100|max:1000000',
+        ]);
+
+        Worker::create([
+            'pid' => $request->boss,
+            'post_id' => $request->post,
+            'name' => $request->name,
+            'salary' => $request->salary,
+//            'avatar' => $request->avatar,
+        ]);
+
         return redirect()->route('listWorkers')->with('success', 'Новый пользователь добавлен');
     }
 
@@ -81,8 +97,9 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $data['worker'] = Worker::findOrFail($id);
         $data['posts'] = Post::all();
+        $data['worker'] = Worker::findOrFail($id);
+        $data['bosses'] = Worker::where('post_id', $data['worker']->post_id - 1)->get();
         return view('admin.worker_edit', $data);
     }
 
@@ -93,9 +110,21 @@ class AdminController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        return redirect()->route('listWorkers')->with('success', 'Новая информация сохранена');
+        $this->validate($request, [
+            'name' => 'required|string',
+            'salary' => 'required|integer|min:100|max:1000000',
+        ]);
+
+        Worker::where('id', $id)->update([
+            'pid' => $request->boss,
+            'post_id' => $request->post,
+            'name' => $request->name,
+            'salary' => $request->salary,
+//            'avatar' => $request->avatar,
+        ]);
+        return redirect($request->redirect_to)->with('success', 'Новая информация сохранена');
     }
 
     /**

@@ -19,6 +19,7 @@ class CreateWorkersTable extends Migration
             $table->tinyInteger('post_id')->unsigned()->default(0);
             $table->string('name', 100);
             $table->smallInteger('salary')->unsigned()->default(0);
+            $table->string('avatar')->default('default.jpg');
             $table->timestamps();
         });
     }

@@ -16,7 +16,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/store', 'AdminController@store')->name('storeWorker');
     Route::post('/show', 'AdminController@show')->name('showWorker');
     Route::get('/edit/{id}', 'AdminController@edit')->name('formEditWorker');
-    Route::put('/update', 'AdminController@update')->name('updateWorker');
+    Route::put('/update/{id}', 'AdminController@update')->name('updateWorker');
     Route::delete('/destroy/{id}', 'AdminController@destroy')->name('destroyWorker');
-
 });

@@ -1,3 +1,4 @@
+// get worker info in the modal window
 $('#table_workers').on('click', '.worker_name', function() {
     // alert($(this).data('id'));
     $.ajax({
@@ -18,7 +19,8 @@ $('#table_workers').on('click', '.worker_name', function() {
     });
 });
 
-$('form[name=create-worker] select[name=post]').on('change', function () {
+// get bosses list for chosen post
+$('form[name=worker-crud] select[name=post]').on('change', function () {
     // alert($(this).val());
     $.ajax({
         url: '/admin/get_bosses',

@@ -1,6 +1,5 @@
 // get worker info in the modal window
 $('#table_workers').on('click', '.worker_name', function() {
-    // alert($(this).data('id'));
     $.ajax({
         url: '/admin/show',
         cache: false,
@@ -21,7 +20,6 @@ $('#table_workers').on('click', '.worker_name', function() {
 
 // get bosses list for chosen post
 $('form[name=worker-crud] select[name=post]').on('change', function () {
-    // alert($(this).val());
     $.ajax({
         url: '/admin/get_bosses',
         cache: false,
@@ -36,3 +34,18 @@ $('form[name=worker-crud] select[name=post]').on('change', function () {
         }
     });
 });
+
+if($('#workers_list').length != 0) {
+    $.ajax({
+        url: '/admin',
+        cache: false,
+        data: {
+            '_token': $('meta[name=csrf-token]').attr('content'),
+        },
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            $('#workers_list').html(data.html);
+        }
+    });
+}

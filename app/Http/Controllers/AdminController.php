@@ -15,10 +15,29 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // Get workers list with pagination
-        $data['workers'] = Worker::with('post')->paginate(10);
+        return view('admin.workers');
+    }
 
-        return view('admin.workers', $data);
+    /**
+     *  Get workers list with pagination by ajax.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getWorkersList(Request $request)
+    {
+        if ($request->ajax()) {
+            // Get workers list with pagination
+            $data['workers'] = Worker::with('post')->paginate(10);
+
+            // Generate view with list of received bosses
+            $view['html'] = view('admin.workers_list', $data)->render();
+
+            // Return generated view
+            return response()->json($view);
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -45,14 +64,18 @@ class AdminController extends Controller
      */
     public function getBosses(Request $request)
     {
-        // Get possible bosses for given worker for select
-        $data['bosses'] = Worker::where('post_id', $request->post_id - 1)->get();
+        if ($request->ajax()) {
+            // Get possible bosses for given worker for select
+            $data['bosses'] = Worker::where('post_id', $request->post_id - 1)->get();
 
-        // Generate view with list of received bosses
-        $view['html'] = view('admin.options', $data)->render();
+            // Generate view with list of received bosses
+            $view['html'] = view('admin.options', $data)->render();
 
-        // Return generated view with message
-        return response()->json($view);
+            // Return generated view
+            return response()->json($view);
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -89,18 +112,22 @@ class AdminController extends Controller
      */
     public function show(Request $request)
     {
-        // Get data of given worker
-        $data['worker'] = Worker::with('post')->join('workers as w2', 'workers.pid', '=', 'w2.id')->
-                                                join('posts', 'w2.post_id', '=', 'posts.id')->
-                                                where('workers.id', $request->id)->
-                                                select('workers.*', 'w2.name as boss_name', 'posts.name as boss_post')->
-                                                first();
+        if ($request->ajax()) {
+            // Get data of given worker
+            $data['worker'] = Worker::with('post')->join('workers as w2', 'workers.pid', '=', 'w2.id')->
+            join('posts', 'w2.post_id', '=', 'posts.id')->
+            where('workers.id', $request->id)->
+            select('workers.*', 'w2.name as boss_name', 'posts.name as boss_post')->
+            first();
 
-        // Generate view with info about given worker
-        $view['html'] = view('admin.worker_info', $data)->render();
+            // Generate view with info about given worker
+            $view['html'] = view('admin.worker_info', $data)->render();
 
-        // Return generated view
-        return response()->json($view);
+            // Return generated view
+            return response()->json($view);
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -141,7 +168,7 @@ class AdminController extends Controller
         // Get selected worker
         $worker = Worker::find($id);
 
-        if($worker) {
+        if ($worker) {
 
             // If selected worker exist to store changes
             Worker::where('id', $id)->update([

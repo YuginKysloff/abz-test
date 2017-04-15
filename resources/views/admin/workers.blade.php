@@ -17,7 +17,11 @@
                     </div>
                 @endif
                 <h1 class="page-header">Список сотрудников</h1>
-                <div class="panel panel-default" id="workers_list"></div>
+                <div class="panel panel-default" id="workers_list">
+                    @if (count($workers) > 0)
+                        @include('admin.workers_list')
+                    @endif
+                </div>
             </div>
         </div>
     </div>

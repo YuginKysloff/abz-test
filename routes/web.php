@@ -10,8 +10,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
-    Route::get('/', 'AdminController@index')->name('listWorkers');
-    Route::post('/', 'AdminController@getWorkersList')->name('listWorkers');
+    Route::match(['get', 'post'], '/', 'AdminController@index')->name('listWorkers');
     Route::get('/create', 'AdminController@create')->name('formCreateWorker');
     Route::post('/get_bosses', 'AdminController@getBosses')->name('getBosses');
     Route::post('/store', 'AdminController@store')->name('storeWorker');

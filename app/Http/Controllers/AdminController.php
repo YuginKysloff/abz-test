@@ -13,31 +13,19 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.workers');
-    }
+        // Get workers list with pagination
+        $data['workers'] = Worker::with('post')->paginate(10);
 
-    /**
-     *  Get workers list with pagination by ajax.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function getWorkersList(Request $request)
-    {
         if ($request->ajax()) {
-            // Get workers list with pagination
-            $data['workers'] = Worker::with('post')->paginate(10);
-
             // Generate view with list of received bosses
             $view['html'] = view('admin.workers_list', $data)->render();
-
-            // Return generated view
             return response()->json($view);
-        } else {
-            abort(404);
         }
+
+        // Return generated view
+        return view('admin.workers', $data);
     }
 
     /**

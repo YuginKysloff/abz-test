@@ -1,4 +1,4 @@
-<div class="panel-body">
+<div class="panel-body" id="load" style="position: relative;">
     <div class="table-responsive">
         <a href="{{ route('formCreateWorker') }}" class="btn btn-primary">Добавить сотрудника</a>
         <table id="table_workers" class="table table-striped table-hover">
@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            @if(is_object($workers))
+            @if(count($workers) > 0)
                 @foreach($workers as $worker)
                     <tr>
                         <td class="worker_name" data-id="{{ $worker->id }}">

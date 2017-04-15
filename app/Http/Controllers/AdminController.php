@@ -46,13 +46,10 @@ class AdminController extends Controller
     public function getBosses(Request $request)
     {
         // Get possible bosses for given worker for select
-        $bosses = Worker::where('post_id', $request->post_id - 1)->get();
+        $data['bosses'] = Worker::where('post_id', $request->post_id - 1)->get();
 
         // Generate view with list of received bosses
-        $view['html'] = '';
-        foreach ($bosses as $boss) {
-            $view['html'] .= "<option value=\"$boss->id\">$boss->name</option>";
-        }
+        $view['html'] = view('admin.options', $data)->render();
 
         // Return generated view with message
         return response()->json($view);

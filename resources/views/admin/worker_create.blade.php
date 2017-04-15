@@ -30,8 +30,8 @@
                                     <div class="form-group">
                                         <label for="post">Выберите начальника</label>
                                         <select class="form-control" name="boss" id="boss">
-                                            @foreach($workers as $worker)
-                                                <option value="{{ $worker->id }}">{{ $worker->name }}</option>
+                                            @foreach($bosses as $boss)
+                                                <option value="{{ $boss->id }}">{{ $boss->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

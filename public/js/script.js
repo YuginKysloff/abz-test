@@ -35,38 +35,34 @@ $('form[name=worker-crud] select[name=post]').on('change', function () {
     });
 });
 
-// if($('#workers_list').length != 0) {
 
-// }
+$(function() {
+    $('#workers_list').on('click', '.pagination a', function(e) {
+        e.preventDefault();
 
+        $('.panel-footer a').css('color', '#dfecf6');
+        $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/img/loading2.gif" />');
 
-    $(function() {
-        $('#workers_list').on('click', '.pagination a', function(e) {
-            e.preventDefault();
-
-            $('.panel-footer a').css('color', '#dfecf6');
-            $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/img/loading2.gif" />');
-
-            var url = $(this).attr('href');
-            getWorkers(url);
-            window.history.pushState("", "", url);
-        });
-
-        function getWorkers(url) {
-            $.ajax({
-                url: url,
-                cache: false,
-                data: {
-                    '_token': $('meta[name=csrf-token]').attr('content')
-                },
-                type: "POST",
-                dataType: "json",
-                success: function (data) {
-                    $('#workers_list').html(data.html);
-                },
-                error: function() {
-                    alert('Ошибка загрузки данных');
-                }
-            });
-        }
+        var url = $(this).attr('href');
+        getWorkers(url);
+        window.history.pushState("", "", url);
     });
+
+    function getWorkers(url) {
+        $.ajax({
+            url: url,
+            cache: false,
+            data: {
+                '_token': $('meta[name=csrf-token]').attr('content')
+            },
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                $('#workers_list').html(data.html);
+            },
+            error: function() {
+                alert('Ошибка загрузки данных');
+            }
+        });
+    }
+});

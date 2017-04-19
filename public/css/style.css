@@ -1,0 +1,8 @@
+#load {
+    position: relative;
+}
+
+.alert {
+    padding: 6px;
+    margin-bottom: 0;
+}

@@ -1,6 +1,22 @@
 <div class="panel-body" id="load" style="position: relative;">
     <div class="table-responsive">
-        <a href="{{ route('formCreateWorker') }}" class="btn btn-primary">Добавить сотрудника</a>
+        <div class="col-sm-2">
+            <a href="{{ route('formCreateWorker') }}" class="btn btn-primary">Добавить сотрудника</a>
+        </div>
+        <div class="col-sm-10">
+            @if(session()->has('success'))
+                <div class="alert alert-success fade in">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>{{ session('success') }}</strong>
+                </div>
+            @endif
+            @if(session()->has('error'))
+                <div class="alert alert-danger fade in">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong>{{ session('error') }}</strong>
+                </div>
+            @endif
+        </div>
         <table id="table_workers" class="table table-striped table-hover">
             <thead>
             <tr>

@@ -102,11 +102,9 @@ class AdminController extends Controller
     {
         if ($request->ajax()) {
             // Get data of given worker
-            $data['worker'] = Worker::with('post')->join('workers as w2', 'workers.pid', '=', 'w2.id')->
-            join('posts', 'w2.post_id', '=', 'posts.id')->
-            where('workers.id', $request->id)->
-            select('workers.*', 'w2.name as boss_name', 'posts.name as boss_post')->
-            first();
+            $data['worker'] = Worker::with('post')->
+                where('workers.id', $request->id)->
+                first();
 
             // Generate view with info about given worker
             $view['html'] = view('admin.worker_info', $data)->render();

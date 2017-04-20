@@ -39,7 +39,7 @@
                                     <th>Должность</th>
                                     <th>Зарплата</th>
                                     <th>Дата приема</th>
-                                    <th>Операции</th>
+                                    <th>Дата редактирования</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -47,7 +47,7 @@
                                     <th>Должность</th>
                                     <th>Зарплата</th>
                                     <th>Дата приема</th>
-                                    <th>Операции</th>
+                                    <th>Дата редактирования</th>
                                 </tfoot>
                             </table>
                         </div>
@@ -66,16 +66,22 @@
     <script>
         $(document).ready( function () {
             $('#workers').DataTable({
-                "Processing": true,
-                "ServerSide": true,
-                "ajax": "{{ route('listWorkers') }}",
+                "bProcessing": true,
+                "serverSide": true,
+                ajax: {
+                    url: '{{ route('getWorkers') }}',
+                    data: {
+                        '_token': $('meta[name=csrf-token]').attr('content')
+                    },
+                    type: "POST"
+                },
                 rowId: 'id',
                 "columns": [
-                    { "data": "name" },
-                    { "data": "post.name" },
-                    { "data": "salary" },
-                    { "data": "created_at" },
-                    { "data": "updated_at" }
+                    { "data": "name", "name": "name" },
+                    { "data": "post.name", "name": "post_id" },
+                    { "data": "salary", "name": "salary" },
+                    { "data": "created_at", "name": "created_at" },
+                    { "data": "updated_at", "name": "updated_at" }
                 ]
             });
         });

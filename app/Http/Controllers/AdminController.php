@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Worker;
 use App\Post;
-use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -16,23 +15,31 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $answer['draw'] = 10;
-        $answer['recordsTotal'] = $answer['recordsFiltered'] = Worker::count();
+        $searchPhrase = $request->search['value'];
+        $orderColumn = $request->columns[$request->order[0]['column']]['name'];
+        $orderDirection = $request->order[0]['dir'];
 
-        // Get workers list with pagination
+        //Generate api answer
+        $answer['draw'] = $request->draw;
+
+        // Get workers list with pagination, ordering and searching
         $answer['data'] = Worker::with('post')->
-                                    orderBy('post_id', 'ASC')->
-//                                    limit(10)->
-//                                    offset(50)->
-                                    get();
+            when($searchPhrase, function($query) use($searchPhrase) {
+                return $query->where('name', 'like', '%'.$searchPhrase.'%');
+            })->
+            orderBy($orderColumn, $orderDirection)->
+            limit($request->length)->
+            offset($request->start)->
+            get();
 
-        if ($request->ajax()) {
-            // Generate view with list of received bosses
-            return response()->json($answer);
-        }
+        $answer['recordsTotal'] = Worker::count();
 
-        // Return generated view
-        return view('admin.workers');
+        // Count records involved in query
+        $answer['recordsFiltered'] = Worker::when($searchPhrase, function($query) use($searchPhrase) {
+                return $query->where('name', 'like', '%'.$searchPhrase.'%');
+            })->count();
+
+        return response()->json($answer);
     }
 
     /**

@@ -10,7 +10,10 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
-    Route::match(['get', 'post'], '/', 'AdminController@index')->name('listWorkers');
+    Route::get('/', function() {
+        return view('admin.workers');
+    })->name('listWorkers');
+    Route::post('/', 'AdminController@index')->name('getWorkers');
     Route::get('/create', 'AdminController@create')->name('formCreateWorker');
     Route::post('/get_bosses', 'AdminController@getBosses')->name('getBosses');
     Route::post('/store', 'AdminController@store')->name('storeWorker');

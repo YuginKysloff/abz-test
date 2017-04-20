@@ -36,33 +36,60 @@ $('form[name=worker-crud] select[name=post]').on('change', function () {
 });
 
 
-$(function() {
-    $('#workers_list').on('click', '.pagination a', function(e) {
-        e.preventDefault();
+// $(function() {
+//     $('#workers_list').on('click', '.pagination a', function(e) {
+//         e.preventDefault();
+//
+//         $('.panel-footer a').css('color', '#dfecf6');
+//         $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/img/loading2.gif" />');
+//
+//         var url = $(this).attr('href');
+//         getWorkers(url);
+//         window.history.pushState("", "", url);
+//     });
+//
+//     function getWorkers(url) {
+//         $.ajax({
+//             url: url,
+//             cache: false,
+//             data: {
+//                 '_token': $('meta[name=csrf-token]').attr('content')
+//             },
+//             type: "POST",
+//             dataType: "json",
+//             success: function (data) {
+//                 $('#workers_list').html(data.html);
+//             },
+//             error: function() {
+//                 alert('Ошибка загрузки данных');
+//             }
+//         });
+//     }
+// });
 
-        $('.panel-footer a').css('color', '#dfecf6');
-        $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/img/loading2.gif" />');
 
-        var url = $(this).attr('href');
-        getWorkers(url);
-        window.history.pushState("", "", url);
-    });
-
-    function getWorkers(url) {
-        $.ajax({
-            url: url,
-            cache: false,
-            data: {
-                '_token': $('meta[name=csrf-token]').attr('content')
-            },
-            type: "POST",
-            dataType: "json",
-            success: function (data) {
-                $('#workers_list').html(data.html);
-            },
-            error: function() {
-                alert('Ошибка загрузки данных');
-            }
-        });
-    }
+//Startup settings for dataTable plugin
+$.extend( $.fn.dataTable.defaults, {
+    language: {
+        "processing": "Подождите...",
+        "search": "Поиск:",
+        "lengthMenu": "Показать _MENU_ записей",
+        "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+        "infoEmpty": "Записи с 0 до 0 из 0 записей",
+        "infoFiltered": "(отфильтровано из _MAX_ записей)",
+        "infoPostFix": "",
+        "loadingRecords": "Загрузка записей...",
+        "zeroRecords": "Записи отсутствуют.",
+        "emptyTable": "В таблице отсутствуют данные",
+        "paginate": {
+            "first": "Первая",
+            "previous": "Предыдущая",
+            "next": "Следующая",
+            "last": "Последняя"
+        },
+        "aria": {
+            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+            "sortDescending": ": активировать для сортировки столбца по убыванию"
+        }
+    },
 });

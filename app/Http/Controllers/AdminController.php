@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Worker;
 use App\Post;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -15,17 +16,23 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        $answer['draw'] = 10;
+        $answer['recordsTotal'] = $answer['recordsFiltered'] = Worker::count();
+
         // Get workers list with pagination
-        $data['workers'] = Worker::with('post')->paginate(10);
+        $answer['data'] = Worker::with('post')->
+                                    orderBy('post_id', 'ASC')->
+//                                    limit(10)->
+//                                    offset(50)->
+                                    get();
 
         if ($request->ajax()) {
             // Generate view with list of received bosses
-            $view['html'] = view('admin.workers_list', $data)->render();
-            return response()->json($view);
+            return response()->json($answer);
         }
 
         // Return generated view
-        return view('admin.workers', $data);
+        return view('admin.workers');
     }
 
     /**
@@ -103,10 +110,11 @@ class AdminController extends Controller
         if ($request->ajax()) {
             // Get data of given worker
             $data['worker'] = Worker::with('post')->join('workers as w2', 'workers.pid', '=', 'w2.id')->
-            join('posts', 'w2.post_id', '=', 'posts.id')->
-            where('workers.id', $request->id)->
-            select('workers.*', 'w2.name as boss_name', 'posts.name as boss_post')->
-            first();
+//                                    where('w2.id', NULL)->
+                                    join('posts', 'w2.post_id', '=', 'posts.id')->
+                                    where('workers.id', $request->id)->
+                                    select('workers.*', 'w2.name as boss_name', 'posts.name as boss_post')->
+                                    first();
 
             // Generate view with info about given worker
             $view['html'] = view('admin.worker_info', $data)->render();

@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <h1>{{ $worker->name }}</h1>
-                <h2>{!! $worker->post->name !!}</h2>
+                <h2>{{ $worker->post->name }}</h2>
                 <div class="row">
                     <div class="col-sm-7">
                         <p><strong>Начальник:</strong> {{ $worker->boss_name }} - {{ $worker->boss_post }}</p>

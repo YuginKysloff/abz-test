@@ -7,10 +7,9 @@
             </div>
             <div class="modal-body">
                 <h1>{{ $worker->name }}</h1>
-                <h2>{{ $worker->post->name }}</h2>
                 <div class="row">
                     <div class="col-sm-7">
-                        <p><strong>Начальник:</strong> {{ $worker->boss_name }} - {{ $worker->boss_post }}</p>
+                        <p><strong>Должность:</strong> {{ $worker->post->name }}</p>
                         <p><strong>Зарплата:</strong> {{ $worker->salary }}</p>
                         <p><strong>Принят:</strong> {{ $worker->created_at->format('d-m-Y') }}</p>
                         <p><strong>Последние изменения:</strong> {{ $worker->updated_at->format('d-m-Y') }}</p>

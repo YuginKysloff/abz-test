@@ -83,7 +83,8 @@
                         "data": "name",
                         "name": "name",
                         "render": function ( name )  {
-                            return  '<a href="'+name+'">' + name + '</a>';
+                            return '<button class="btn btn-xs btn-link worker_name" title="Подробный просмотр">'+name+'</button>';
+//                            return  '<a href="'+name+'">' + name + '</a>';
                         }
                     },
                     { "data": "post.name", "name": "post_id" },

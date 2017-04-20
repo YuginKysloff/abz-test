@@ -1,22 +1,22 @@
-// // get worker info in the modal window
-// $('#workers_list').on('click', '.worker_name', function() {
-//     $.ajax({
-//         url: '/admin/show',
-//         cache: false,
-//         data: {
-//             '_token': $('meta[name=csrf-token]').attr('content'),
-//             'id': $(this).data('id')
-//         },
-//         type: "POST",
-//         dataType: "json",
-//         success: function (data) {
-//             $('#modal__wrapper').html(data.html);
-//         },
-//         complete: function () {
-//             $('#Modal').modal('show');
-//         }
-//     });
-// });
+// get worker info in the modal window
+$('#workers_list').on('click', '.worker_name', function() {
+    $.ajax({
+        url: '/admin/show',
+        cache: false,
+        data: {
+            '_token': $('meta[name=csrf-token]').attr('content'),
+            'id': $(this).closest('tr').attr('id')
+        },
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            $('#modal__wrapper').html(data.html);
+        },
+        complete: function () {
+            $('#Modal').modal('show');
+        }
+    });
+});
 
 // get bosses list for chosen post
 $('form[name=worker-crud] select[name=post]').on('change', function () {

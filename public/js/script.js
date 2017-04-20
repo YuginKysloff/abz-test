@@ -41,7 +41,7 @@ $(function() {
         e.preventDefault();
 
         $('.panel-footer a').css('color', '#dfecf6');
-        $('#load').append('<img style="position: absolute; left: 0; top: 0; z-index: 100000;" src="/img/loading2.gif" />');
+        $('#load').append('<img class="preloader" style="max-width: 80px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 100000;" src="/img/loading2.gif" />');
 
         var url = $(this).attr('href');
         getWorkers(url);

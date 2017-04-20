@@ -3,6 +3,7 @@
 @section('head')
     @parent
     <link href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.css" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -11,9 +12,9 @@
             <div class="main">
                 <h1 class="page-header">Список сотрудников</h1>
                 <div class="panel panel-default" id="workers_list">
-                    <div class="panel-body" id="load" style="position: relative;">
+                    <div class="panel-body">
                         <div class="table">
-                            <div class="row">
+                            <div class="row table-header">
                                 <div class="col-sm-2">
                                     <a href="{{ route('formCreateWorker') }}" class="btn btn-primary">Добавить сотрудника</a>
                                 </div>
@@ -66,8 +67,10 @@
     <script>
         $(document).ready( function () {
             $('#workers').DataTable({
-                "bProcessing": true,
+                "stateSave": true,
+                "Processing": true,
                 "serverSide": true,
+                rowId: 'id',
                 ajax: {
                     url: '{{ route('getWorkers') }}',
                     data: {
@@ -75,9 +78,14 @@
                     },
                     type: "POST"
                 },
-                rowId: 'id',
                 "columns": [
-                    { "data": "name", "name": "name" },
+                    {
+                        "data": "name",
+                        "name": "name",
+                        "render": function ( name )  {
+                            return  '<a href="'+name+'">' + name + '</a>';
+                        }
+                    },
                     { "data": "post.name", "name": "post_id" },
                     { "data": "salary", "name": "salary" },
                     { "data": "created_at", "name": "created_at" },

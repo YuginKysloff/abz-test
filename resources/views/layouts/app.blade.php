@@ -10,7 +10,6 @@
             <meta name="csrf-token" content="{{ csrf_token() }}">
             <title>{{ config('app.name') }}</title>
             <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-            <link href="{{ asset('css/style.css') }}" rel="stylesheet">
         @show
     </head>
     <body role="document">

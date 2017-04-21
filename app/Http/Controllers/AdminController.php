@@ -139,6 +139,7 @@ class AdminController extends Controller
     public function show(Request $request)
     {
         if ($request->ajax()) {
+
             // Get data of given worker
             $data['worker'] = Worker::with('post')->
                 where('workers.id', $request->id)->

@@ -19,7 +19,7 @@ $('#workers_list').on('click', '.worker_name', function() {
 });
 
 // get bosses list for chosen post
-$('form[name=worker-crud] select[name=post]').on('change', function () {
+$('form[name=worker-crud] select[name=post_id]').on('change', function () {
     $.ajax({
         url: '/admin/get_bosses',
         cache: false,

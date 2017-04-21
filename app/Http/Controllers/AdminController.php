@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Worker;
 use App\Post;
 
@@ -96,19 +97,37 @@ class AdminController extends Controller
         // Validate received data
         $this->validate($request, [
             'name' => 'required|string',
+            'pid' => 'required|integer',
+            'post_id' => 'required|integer',
             'salary' => 'required|numeric|min:100|max:1000000',
         ]);
 
-        // Store new worker
-        Worker::create([
-            'pid' => $request->boss,
-            'post_id' => $request->post,
-            'name' => $request->name,
-            'salary' => $request->salary,
-//            'avatar' => $request->avatar,
-        ]);
+        // Prepare data to store in the database
+        $data = $request->except('_token, avatar');
 
-        return redirect()->route('listWorkers')->with('success', 'Новый пользователь добавлен');
+        if($request->hasFile('avatar')) {
+
+            // Generate filename
+            $data['avatar'] = (Worker::orderBy('id', 'DESC')->first()->id + 1).'.'.explode('.', $request->file('avatar')->getClientOriginalName())[1];
+
+            Storage::disk('local')->
+                putFileAs(
+                    '/public/avatars',
+                    $request->file('avatar'),
+                    $data['avatar'],
+                    'public'
+                );
+        }
+
+        // Store new worker
+        $worker = new Worker();
+        $worker->fill($data);
+
+        if($worker->save()) {
+            return redirect()->route('listWorkers')->with('success', 'Новый пользователь добавлен');
+        } else {
+            return redirect()->route('listWorkers')->with('error', 'Ошибка добавления пользователя');
+        }
     }
 
     /**
@@ -167,25 +186,40 @@ class AdminController extends Controller
         // Validate received data
         $this->validate($request, [
             'name' => 'required|string',
-            'salary' => 'required|integer|min:100|max:1000000',
+            'pid' => 'required|integer',
+            'post_id' => 'required|integer',
+            'salary' => 'required|numeric|min:100|max:1000000',
         ]);
 
-        // Get selected worker
-        $worker = Worker::find($id);
+        // Check selected worker
+        if ($worker = Worker::find((int)$id)) {
 
-        if ($worker) {
+            // Prepare data to store in the database
+            $data = $request->except('_token, avatar');
 
-            // If selected worker exist to store changes
-            Worker::where('id', $id)->update([
-                'pid' => $request->boss,
-                'post_id' => $request->post,
-                'name' => $request->name,
-                'salary' => $request->salary,
-//            'avatar' => $request->avatar,
-            ]);
+            if($request->hasFile('avatar')) {
 
-            // Return to workers list with message
-            return redirect()->route('listWorkers')->with('success', 'Новая информация сохранена');
+                // Generate filename
+                $data['avatar'] = $worker->id.'.'.explode('.', $request->file('avatar')->getClientOriginalName())[1];
+
+                Storage::disk('local')->
+                    putFileAs(
+                        '/public/avatars',
+                        $request->file('avatar'),
+                        $data['avatar'],
+                        'public'
+                    );
+            }
+
+            // Store new data
+            $worker->fill($data);
+
+            if($worker->save()) {
+                return redirect()->route('listWorkers')->with('success', 'Новая информация сохранена');
+            } else {
+                return redirect()->route('listWorkers')->with('error', 'Ошибка изменения пользователя');
+            }
+
         } else {
 
             // If doesn't exist return with error

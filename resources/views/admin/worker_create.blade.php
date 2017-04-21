@@ -7,7 +7,7 @@
                 <h1 class="page-header">Добавление сотрудника</h1>
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form name="worker-crud" method="post" action="{{ route('storeWorker') }}" role="form">
+                        <form name="worker-crud" method="post" action="{{ route('storeWorker') }}" role="form" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group {{ ($errors->has('name')) ? 'has-error' : '' }}">
@@ -21,7 +21,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="post">Выберите должность</label>
-                                        <select class="form-control" name="post" id="post">
+                                        <select class="form-control" name="post_id" id="post">
                                             @foreach($posts as $post)
                                                 <option value="{{ $post->id }}" {{ ($post->id == 1) ? 'disabled' : '' }}>{{ $post->name }}</option>
                                             @endforeach
@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="post">Выберите начальника</label>
-                                        <select class="form-control" name="boss" id="boss">
+                                        <select class="form-control" name="pid" id="boss">
                                             @foreach($bosses as $boss)
                                                 <option value="{{ $boss->id }}">{{ $boss->name }}</option>
                                             @endforeach
@@ -52,7 +52,6 @@
                                     <div class="form-group {{ ($errors->has('avatar')) ? 'has-error' : '' }}">
                                         <label for="avatar">Выберите фото для загрузки</label>
                                         <input type="file" name="avatar" id="avatar">
-                                        <p class="help-block">Максимальный размер фото 200кб. Размеры от 100X100 до 800X600</p>
                                         @if ($errors->has('avatar'))
                                             <span class="help-block">
                                                 <strong>{{ $errors->first('avatar') }}</strong>

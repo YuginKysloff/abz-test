@@ -15,7 +15,7 @@
                         <p><strong>Последние изменения:</strong> {{ $worker->updated_at->format('d-m-Y') }}</p>
                     </div>
                     <div class="col-sm-5">
-                        <img src="{{ asset('/uploads/avatars/'.$worker->avatar) }}" alt="{{ $worker->name }}" class="img-thumbnail center-block">
+                        <img src="{{ asset('storage/avatars/'.$worker->avatar) }}" alt="{{ $worker->name }}" class="img-thumbnail center-block">
                     </div>
                 </div>
             </div>

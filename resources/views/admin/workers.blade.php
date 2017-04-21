@@ -91,9 +91,10 @@
                     { "data": "created_at", "name": "created_at" },
                     {
                         "data": null,
+                        "orderable": false,
                         "render": function (row)  {
                             return '<a href="/admin/'+row.id+'/edit" class="btn btn-xs btn-warning" title="Изменить запись">Изменить</a> '+
-                                ' <a href="/admin/'+row.id+'/destroy" class="btn btn-xs btn-danger" title="Удалить запись" onclick="confirm();">Удалить</a>';
+                                ' <button class="btn btn-xs btn-danger" title="Удалить запись" onclick="if(confirm(\'Вы действительно хотите удалить запись?\')\) window.location = \'/admin/'+row.id+'/destroy\'">Удалить</button>';
                         }
                     }
                 ]

@@ -59,7 +59,6 @@
                                             </span>
                                         @endif
                                     </div>
-                                    <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
                                     {{ method_field('PUT') }}
                                     {{ csrf_field() }}
                                 </div>

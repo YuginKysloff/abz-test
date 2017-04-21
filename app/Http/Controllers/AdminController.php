@@ -185,11 +185,11 @@ class AdminController extends Controller
             ]);
 
             // Return to workers list with message
-            return redirect($request->redirect_to)->with('success', 'Новая информация сохранена');
+            return redirect()->route('listWorkers')->with('success', 'Новая информация сохранена');
         } else {
 
             // If doesn't exist return with error
-            return redirect($request->redirect_to)->with('error', 'Запись не существует');
+            return redirect()->route('listWorkers')->with('error', 'Запись не существует');
         }
     }
 

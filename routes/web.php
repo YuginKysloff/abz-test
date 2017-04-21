@@ -18,8 +18,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/get_bosses', 'AdminController@getBosses')->name('getBosses');
     Route::post('/store', 'AdminController@store')->name('storeWorker');
     Route::post('/show', 'AdminController@show')->name('showWorker');
-    Route::get('/edit/{id}', 'AdminController@edit')->name('formEditWorker');
-    Route::put('/update/{id}', 'AdminController@update')->name('updateWorker');
-    Route::delete('/destroy/{id}', 'AdminController@destroy')->name('destroyWorker');
+    Route::get('/{id}/edit', 'AdminController@edit')->name('formEditWorker');
+    Route::put('/{id}/update', 'AdminController@update')->name('updateWorker');
+    Route::get('/{id}/destroy', 'AdminController@destroy')->name('destroyWorker');
 
 });

@@ -40,7 +40,7 @@
                                     <th>Должность</th>
                                     <th>Зарплата</th>
                                     <th>Дата приема</th>
-                                    <th>Дата редактирования</th>
+                                    <th>Операции</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -48,7 +48,7 @@
                                     <th>Должность</th>
                                     <th>Зарплата</th>
                                     <th>Дата приема</th>
-                                    <th>Дата редактирования</th>
+                                    <th>Операции</th>
                                 </tfoot>
                             </table>
                         </div>
@@ -84,15 +84,21 @@
                         "name": "name",
                         "render": function ( name )  {
                             return '<button class="btn btn-xs btn-link worker_name" title="Подробный просмотр">'+name+'</button>';
-//                            return  '<a href="'+name+'">' + name + '</a>';
                         }
                     },
                     { "data": "post.name", "name": "post_id" },
                     { "data": "salary", "name": "salary" },
                     { "data": "created_at", "name": "created_at" },
-                    { "data": "updated_at", "name": "updated_at" }
+                    {
+                        "data": null,
+                        "render": function (row)  {
+                            return '<a href="/admin/'+row.id+'/edit" class="btn btn-xs btn-warning" title="Изменить запись">Изменить</a> '+
+                                ' <a href="/admin/'+row.id+'/destroy" class="btn btn-xs btn-danger" title="Удалить запись" onclick="confirm();">Удалить</a>';
+                        }
+                    }
                 ]
             });
         });
     </script>
 @endsection
+

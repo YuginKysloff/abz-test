@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('head')
+    @parent
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container theme-showcase" role="main">
         <div class="row">
@@ -19,7 +24,13 @@
                 <h1 class="page-header">Список сотрудников</h1>
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        {!! $tree !!}
+                        @foreach($workers as $worker)
+                            @if($worker->pid == 0)
+                            <div class="node">{{ $worker->post->name }} - {{ $worker->name }}</div>
+                            @else
+                                <div class="col-sm-offset-1">{{ $worker->post->name }} - {{ $worker->name }}</div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -1,8 +1,14 @@
-.table-header {
-    margin-bottom: 15px;
-}
-
 .alert {
     padding: 6px;
     margin-bottom: 0;
+}
+
+.node {
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.table-header {
+    margin-bottom: 15px;
 }

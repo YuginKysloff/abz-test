@@ -67,6 +67,7 @@
     <script>
         $(document).ready( function () {
             $('#workers').DataTable({
+                "displayLength": 25,
                 "stateSave": true,
                 "Processing": true,
                 "serverSide": true,

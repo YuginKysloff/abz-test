@@ -34,7 +34,7 @@ class IndexController extends Controller
             $data['workers'] = Worker::where('pid', $request->id)->get();
 
             // Generate view with list of received bosses
-            $view['html'] = (count($data['workers']) > 0) ? view('brunch', $data)->render() : '<ul><li>Нет подчиненных</li></ul>';
+            $view['html'] = (count($data['workers']) > 0) ? view('brunch', $data)->render() : '- нет подчиненных';
 
             // Pass id to the view
             $view['id'] = $request->id;

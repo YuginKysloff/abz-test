@@ -1,4 +1,4 @@
-
+// Lazy loading
 $('.panel-body').on('click', '.worker', function() {
     $.ajax({
         url: '/brunch',

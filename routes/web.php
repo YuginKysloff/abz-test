@@ -5,6 +5,7 @@ Route::get('/', function () {
 });
 
 Route::get('/workers', 'IndexController@index')->name('workersTree');
+Route::post('/brunch', 'IndexController@getBrunch')->name('getBrunch');
 
 Auth::routes();
 

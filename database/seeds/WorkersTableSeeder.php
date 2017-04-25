@@ -33,7 +33,7 @@ class WorkersTableSeeder extends Seeder
             ]);
         }
 
-        for($i = 0; $i < 100; $i++) {
+        for($i = 0; $i < 300; $i++) {
             App\Worker::create([
                 'pid' => mt_rand(2, 11),
                 'post_id' => 3,
@@ -44,9 +44,9 @@ class WorkersTableSeeder extends Seeder
             ]);
         }
 
-        for($i = 0; $i < 300; $i++) {
+        for($i = 0; $i < 1000; $i++) {
             App\Worker::create([
-                'pid' => mt_rand(11, 111),
+                'pid' => mt_rand(11, 311),
                 'post_id' => 4,
                 'name' => $faker->name,
                 'salary' => 1000,
@@ -55,9 +55,9 @@ class WorkersTableSeeder extends Seeder
             ]);
         }
 
-        for($i = 0; $i < 589; $i++) {
+        for($i = 0; $i < 48689; $i++) {
             App\Worker::create([
-                'pid' => mt_rand(57, 411),
+                'pid' => mt_rand(311, 1311),
                 'post_id' => 5,
                 'name' => $faker->name,
                 'salary' => 500,

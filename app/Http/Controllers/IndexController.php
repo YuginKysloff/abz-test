@@ -9,50 +9,40 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $query = Worker::with('post')->get()->toArray();
+        $workers = Worker::with('post')->whereIn('post_id', [1,2])->get();
 
-//        dump($query);
-
-        // Подготовка данных для построения дерева
-        $arr = [];
-        if($query) {
-            foreach($query as $item) {
-                $arr[$item['pid']][$item['id']] = $item['post']['name'].' - '.$item['name'];
+        $data = [];
+        foreach ($workers as $key => $worker)
+        {
+            if($worker->pid == 0)
+            {
+                $data['workers']['first'][$worker->id] = $worker;
+            }
+            else
+            {
+                $data['workers']['second'][$worker->pid][$worker->id] = $worker;
             }
         }
-
-        // Вызов функции построения дерева
-        $data['tree'] = $this->getTree($arr, 0);
 
         return view('tree', $data);
     }
 
-    /**
-     * Рекурсивная функция построения дерева
-     *
-     * @param array $arr - данные для дерева
-     * @param integer $parent - id родителя
-     * @return string
-     */
-    private function getTree($arr, $parent) {
+    public function getBrunch(Request $request)
+    {
+        if ($request->ajax()) {
+            // Get possible bosses for given worker for select
+            $data['workers'] = Worker::where('pid', $request->id)->get();
 
-        // Если существуют строки с данным id родителя перебираем их
-        $result = '';
-        if (isset($arr[$parent])) {
-            $result .= '<blockquote class="col-sm-offset-1">';
-            foreach ($arr[$parent] as $key => $value) {
+            // Generate view with list of received bosses
+            $view['html'] = (count($data['workers']) > 0) ? view('brunch', $data)->render() : '<ul><li>Нет подчиненных</li></ul>';
 
-                // Формирование строки результата
-                $result .= '<div>'.$value;
+            // Pass id to the view
+            $view['id'] = $request->id;
 
-                // Рекурсивный вызов функции построения дерева
-                $result .= $this->getTree($arr, $key);
-                $result .= '</div>';
-            }
-            $result .= '</blockquote>';
+            // Return generated view
+            return response()->json($view);
         } else {
-            return null;
+            abort(404);
         }
-        return $result;
     }
 }

@@ -19,10 +19,32 @@
                 <h1 class="page-header">Список сотрудников</h1>
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        {!! $tree !!}
+                        <ul>
+                            @foreach($workers['first'] as $key => $boss)
+                                <li>
+                                    {{ $boss->post->name }} - {{ $boss->name }}
+                                    @if(isset($workers['second'][$key]))
+                                        <ul>
+                                            @foreach($workers['second'][$key] as $worker)
+                                                <li id="{{ $worker->id }}" class="worker">
+                                                    <button class="btn btn-link">
+                                                        {{ $worker->post->name }} - {{ $worker->name }}
+                                                    </button>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @parent
+    <script src="{{ asset('js/script.tree.js') }}"></script>
 @endsection

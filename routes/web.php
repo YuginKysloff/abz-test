@@ -4,6 +4,17 @@ Route::get('/', function () {
     return view('resume');
 });
 
+// WKS
+Route::get('/task_wks', function () {
+    return view('task_wks');
+});
+Route::match(['get', 'post'], '/users', 'UserController@index')->name('usersList');
+Route::post('/random', 'UserController@random')->name('random');
+
+// ABZ
+Route::get('/task_abz', function () {
+    return view('task_abz');
+});
 Route::get('/workers', 'IndexController@index')->name('workersTree');
 Route::post('/brunch', 'IndexController@getBrunch')->name('getBrunch');
 

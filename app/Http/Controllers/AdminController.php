@@ -108,7 +108,7 @@ class AdminController extends Controller
         if($request->hasFile('avatar')) {
 
             // Generate filename
-            $data['avatar'] = (Worker::orderBy('id', 'DESC')->first()->id + 1).'.'.explode('.', $request->file('avatar')->getClientOriginalName())[1];
+            $data['avatar'] = (Worker::orderBy('id', 'DESC')->first()->id + 1).'.'.$request->file('avatar')->getClientOriginalExtension();
 
             Storage::disk('local')->
                 putFileAs(

@@ -25,9 +25,23 @@
                     <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-left">
                         <li {{ (url()->current() == url('/')) ? 'class=active' : '' }}>
                             <a href="{{ url('/') }}">Резюме</a>
+                        </li>
+                        <li><a>|</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a>|</a></li>
+                        <li {{ (url()->current() == url('/task_wks')) ? 'class=active' : '' }}>
+                            <a href="{{ url('/task_wks') }}">Задание WKS</a>
+                        </li>
+                        <li {{ (url()->current() == route('usersList')) ? 'class=active' : '' }}>
+                            <a href="{{ route('usersList') }}">Пользователи</a>
+                        </li>
+                        <li><a>|</a></li>
+                        <li {{ (url()->current() == url('/task_abz')) ? 'class=active' : '' }}>
+                            <a href="{{ url('/task_abz') }}">Задание ABZ</a>
                         </li>
                         <li {{ (url()->current() == route('workersTree')) ? 'class=active' : '' }}>
                             <a href="{{ route('workersTree') }}">Сотрудники</a>

@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <img src="{{ asset('/uploads/avatars/default.jpg') }}" alt="avatar" class="img-thumbnail center-block">
+                                        <img src="{{ asset('/storage/avatars/default.jpg') }}" alt="avatar" class="img-thumbnail center-block">
                                     </div>
                                     <div class="form-group {{ ($errors->has('avatar')) ? 'has-error' : '' }}">
                                         <label for="avatar">Выберите фото для загрузки</label>

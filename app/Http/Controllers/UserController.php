@@ -11,14 +11,15 @@ class UserController extends Controller
     {
         if($request->isMethod('post')) {
             if ($request->hasFile('file')) {
-                if (($handle = fopen($request->file('file'), "r")) !== false) {
+                $request->file('file')->move(storage_path('app/public/files/'), $request->file('file')->getClientOriginalName());
+                if (($handle = fopen(storage_path('app/public/files/').$request->file('file')->getClientOriginalName(), "r")) !== false) {
                     $result['countAddLines'] = $result['countMissLines'] = 0;
                     while (($data = fgetcsv($handle, 1000, ";")) !== false) {
-                        if(User::where('login', $data[0])->where('email', $data[3])->first()) {
+                        if(User::where('login', $data[2])->where('email', $data[3])->first()) {
                             $result['missLines'][] = $data[1].' '.$data[2].' '.$data[3];
                             $result['countMissLines']++;
                         } else {
-                            User::Create([
+                            User::create([
                                 'first_name' => $data[0],
                                 'last_name' => $data[1],
                                 'login' => $data[2],

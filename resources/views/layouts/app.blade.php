@@ -29,9 +29,14 @@
                         <li {{ (url()->current() == url('/')) ? 'class=active' : '' }}>
                             <a href="{{ url('/') }}">Резюме</a>
                         </li>
-                        <li><a>|</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li {{ (url()->current() == url('/task_2up')) ? 'class=active' : '' }}>
+                            <a href="{{ url('/task_2up') }}">Задание 2UP</a>
+                        </li>
+                        <li {{ (url()->current() == route('vacancies')) ? 'class=active' : '' }}>
+                            <a href="{{ route('vacancies') }}">Вакансии</a>
+                        </li>
                         <li><a>|</a></li>
                         <li {{ (url()->current() == url('/task_wks')) ? 'class=active' : '' }}>
                             <a href="{{ url('/task_wks') }}">Задание WKS</a>

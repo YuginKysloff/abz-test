@@ -4,6 +4,12 @@ Route::get('/', function () {
     return view('resume');
 });
 
+//2UP
+Route::get('/task_2up', function () {
+    return view('task_2up');
+});
+Route::get('/vacancies', 'VacanciesController@index')->name('vacancies');
+
 // WKS
 Route::get('/task_wks', function () {
     return view('task_wks');

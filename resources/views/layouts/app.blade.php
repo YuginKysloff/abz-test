@@ -26,37 +26,40 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-left">
-                        <li {{ (url()->current() == url('/')) ? 'class=active' : '' }}>
+                        <li {{ (Request::is('/') ? 'class=active' : '') }}>
                             <a href="{{ url('/') }}">Резюме</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li {{ (url()->current() == url('/task_2up')) ? 'class=active' : '' }}>
-                            <a href="{{ url('/task_2up') }}">Задание 2UP</a>
+
+                        <li class="dropdown {{ (Request::is('2up/*') ? 'active' : '') }}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для 2UP <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('task2UP') }}">Задание</a></li>
+                                <li><a href="{{ route('vacancies') }}">Вакансии</a></li>
+                            </ul>
                         </li>
-                        <li {{ (url()->current() == route('vacancies')) ? 'class=active' : '' }}>
-                            <a href="{{ route('vacancies') }}">Вакансии</a>
+
+                        <li class="dropdown {{ (Request::is('wks/*') ? 'active' : '') }}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для WKS <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('taskWKS') }}">Задание</a></li>
+                                <li><a href="{{ route('usersList') }}">Пользователи</a></li>
+                            </ul>
                         </li>
                         <li><a>|</a></li>
-                        <li {{ (url()->current() == url('/task_wks')) ? 'class=active' : '' }}>
-                            <a href="{{ url('/task_wks') }}">Задание WKS</a>
-                        </li>
-                        <li {{ (url()->current() == route('usersList')) ? 'class=active' : '' }}>
-                            <a href="{{ route('usersList') }}">Пользователи</a>
-                        </li>
-                        <li><a>|</a></li>
-                        <li {{ (url()->current() == url('/task_abz')) ? 'class=active' : '' }}>
+                        <li {{ (Request::is('task_abz') ? 'class=active' : '') }}>
                             <a href="{{ url('/task_abz') }}">Задание ABZ</a>
                         </li>
-                        <li {{ (url()->current() == route('workersTree')) ? 'class=active' : '' }}>
+                        <li {{ (Request::is('workers') ? 'class=active' : '') }}>
                             <a href="{{ route('workersTree') }}">Сотрудники</a>
                         </li>
                         @if (Auth::guest())
-                            <li {{ (url()->current() == route('login')) ? 'class=active' : '' }}>
-                                <a href="{{ route('login') }}">Войти</a>
+                            <li {{ (Request::is('login') ? 'class=active' : '') }}>
+                                <a href="{{ route('login') }}">Вход</a>
                             </li>
                         @else
-                            <li {{ (url()->current() == route('listWorkers')) ? 'class=active' : '' }}>
+                            <li {{ (Request::is('admin/*') ? 'class=active' : '') }}>
                                 <a  href="{{ route('listWorkers') }}">Редактировать</a>
                             </li>
                             <li>

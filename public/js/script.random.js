@@ -1,7 +1,7 @@
 $('#button__random').on('click', function() {
     // alert()
     $.ajax({
-        url: '/random',
+        url: '/wks/random',
         cache: false,
         data: {
             '_token': $('meta[name=csrf-token]').attr('content')

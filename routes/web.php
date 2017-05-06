@@ -5,17 +5,21 @@ Route::get('/', function () {
 });
 
 //2UP
-Route::get('/task_2up', function () {
-    return view('task_2up');
+Route::group(['prefix' => '2up'], function() {
+    Route::get('/task', function () {
+        return view('task_2up');
+    })->name('task2UP');
+    Route::get('/vacancies', 'VacanciesController@index')->name('vacancies');
 });
-Route::get('/vacancies', 'VacanciesController@index')->name('vacancies');
 
 // WKS
-Route::get('/task_wks', function () {
-    return view('task_wks');
+Route::group(['prefix' => 'wks'], function() {
+    Route::get('/task', function () {
+        return view('task_wks');
+    })->name('taskWKS');
+    Route::match(['get', 'post'], '/users', 'UserController@index')->name('usersList');
+    Route::post('/random', 'UserController@random')->name('random');
 });
-Route::match(['get', 'post'], '/users', 'UserController@index')->name('usersList');
-Route::post('/random', 'UserController@random')->name('random');
 
 // ABZ
 Route::get('/task_abz', function () {
@@ -28,7 +32,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
-    Route::get('/', function() {
+    Route::get('/workers', function() {
         return view('admin.workers');
     })->name('listWorkers');
     Route::post('/', 'AdminController@index')->name('getWorkers');

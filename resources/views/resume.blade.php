@@ -13,30 +13,18 @@
                     <strong>Оригинал резюме на hh.ru</strong>
                 </a>
             <p class="resume__title">Киселев Юрий Викторович</p>
-            <p>Мужчина, 40 лет, родился
-                <text>4</text>
-                <text>января</text>
-                <text>1977</text>
-            </p>
             <br>
             <p>+380 (99) 7268566</p>
-            <p>yuriy.kyselov@gmail.com<span class="info"> — предпочитаемый способ связи</span></p>
-            <p>Skype: t0p01m</p><br>
-            <p>Проживает: Донецк (Украина)</p>
-            <p>Гражданство: Украина, есть разрешение на работу: Россия, Украина</p>
-            <p>Готов к переезду: Москва, Санкт-Петербург, Киев, Днепр (Днепропетровск), Харьков, готов к
-                командировкам</p>
+            <p>yuriy.kyselov@gmail.com</p>
+            <p>Skype: t0p01m</p>
+            <p>Telegram: https://t.me/t0p01m</p>
+            <br>
             <p class="resume__block">Желаемая должность</p>
             <p class="resume__position">PHP-разработчик</p>
-            <p>Информационные технологии, интернет, телеком</p>
-            <ul>
-                <li class="resume-specialization">Программирование, Разработка</li>
-            </ul>
             <br>
-            <p>
             <p>Занятость: полная занятость, частичная занятость</p>
-            <p>График работы: полный день, сменный график, гибкий график, удаленная работа</p></p><p>Желательное время в
-                пути до работы: не имеет значения</p>
+            <p>График работы: полный день, гибкий график, удаленная работа</p>
+
             <p class="resume__block">Опыт работы — 9 лет 10 месяцев</p>
             <ul>
                 <li class="resume-experience"><span class="resume-experience__company">BSPro</span>
@@ -44,7 +32,7 @@
                     <p class="bloko-form-hint">Июнь 2016 — Март 2017 10 месяцев</p>
                     <p class="resume-experience__position">PHP-разработчик</p>
                     <p>
-                        <description>Разработка экономических игр (PHP, Laravel, MySQL, JQuery, AJAX, Git)</description>
+                        <description>Разработка экономических игр (PHP, Laravel, MySQL, JQuery, AJAX, Bootstrap, HTML, CSS, Git). </description>
                     </p>
                 </li>
                 <li class="resume-experience"><span class="resume-experience__company">Freelancer</span>
@@ -52,8 +40,7 @@
                     <p class="bloko-form-hint">Январь 2016 — Июнь 2016 6 месяцев</p>
                     <p class="resume-experience__position">Веб-разработчик</p>
                     <p>
-                        <description>Разработка дизайна. Изготовление макета в Adobe Photoshop. Верстка HTML5, CSS3,
-                            Bootstrap. Программирование PHP CodeIgniter, MySQL, JQuery.
+                        <description>Разработка веб-сайтов (PHP, Codeigniter, MySQL, JQuery, AJAX, Bootstrap, HTML, CSS).
                         </description>
                     </p>
                 </li>
@@ -62,8 +49,7 @@
                     <p class="bloko-form-hint">Август 2015 — Декабрь 2015 5 месяцев</p>
                     <p class="resume-experience__position">PHP-разработчик</p>
                     <p>
-                        <description>Полный цикл разработки веб-сайтов от дизайна до программирования движка и SEO
-                            оптимизации с помощью PHP, MySQL, JQuery и Codeigniter, Bootstrap frameworks.
+                        <description>Разработка веб-сайтов (PHP, Codeigniter, MySQL, JQuery, AJAX, Bootstrap, HTML, CSS).
                         </description>
                     </p>
                 </li>
@@ -108,25 +94,16 @@
                     <p class="bloko-form-hint">2012</p></li>
                 <p>American English Center, Сертификат</p></ul>
             <p class="resume__block">Ключевые навыки</p>
+            <p>PHP, Laravel, Codeigniter, MySQL, JQuery, AJAX, Bootstrap, HTML, CSS, Git</p>
             <ul>
                 <li class="resume-skils"><span class="bloko-form-hint">Знание языков</span>
                     <ul class="resume-skils__item">
                         <li>Русский<span class="info"> — родной</span></li>
-                        <li>Английский<span class="info"> — могу проходить интервью</span></li>
+                        <li>Украинский<span class="info"> — выше среднего</span></li>
+                        <li>Английский<span class="info"> — intermediate</span></li>
                     </ul>
                 </li>
             </ul>
-            <p class="resume__block">Дополнительная информация</p>
-            <ul>
-                <li class="resume-skils"><span class="bloko-form-hint">Обо мне</span>
-                    <p class="resume-skils__item">
-                        <string>Энергичность, коммуникабельность, ответственность. Постоянно занимаюсь
-                            самосовершенствованием и самообразованием.
-                        </string>
-                    </p>
-                </li>
-            </ul>
-            </p>
         </div>
         <hr>
     </div>

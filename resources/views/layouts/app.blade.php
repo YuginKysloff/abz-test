@@ -31,23 +31,6 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-
-                        <li class="dropdown {{ (Request::is('2up/*') ? 'active' : '') }}">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для 2UP <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('task2UP') }}">Задание</a></li>
-                                <li><a href="{{ route('vacancies') }}">Вакансии</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="dropdown {{ (Request::is('wks/*') ? 'active' : '') }}">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для WKS <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('taskWKS') }}">Задание</a></li>
-                                <li><a href="{{ route('usersList') }}">Пользователи</a></li>
-                            </ul>
-                        </li>
-                        <li><a>|</a></li>
                         <li {{ (Request::is('task_abz') ? 'class=active' : '') }}>
                             <a href="{{ url('/task_abz') }}">Задание ABZ</a>
                         </li>
@@ -71,6 +54,31 @@
                                 </form>
                             </li>
                         @endif
+                        <li><a>|</a></li>
+                        <li class="dropdown {{ (Request::is('wks/*') ? 'active' : '') }}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для WKS <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('taskWKS') }}">Задание</a></li>
+                                <li><a href="{{ route('usersList') }}">Пользователи</a></li>
+                            </ul>
+                        </li>
+                         <li class="dropdown {{ (Request::is('abroad/*') ? 'active' : '') }}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">For abroad <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('taskAbroad') }}">Task</a></li>
+                                <li><a href="http://cs90443-magento.tw1.ru/" target="_blank">Vocabulary</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown {{ (Request::is('2up/*') ? 'active' : '') }}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для 2UP <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('task2UP') }}">Задание</a></li>
+                                <li><a href="{{ route('vacancies') }}">Вакансии</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="http://seven.cs90443-magento.tw1.ru/" target="_blank">Для СМ</a>
+                        </li>
                     </ul>
                 </div>
             </div>

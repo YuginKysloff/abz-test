@@ -35,6 +35,7 @@
                                 Вывести в таком виде: "<user's first name> <user's last name> (id=<user's id>)" (Например, "Петр Иванов (id=165)")</p>
                         </li>
                     </ol>
+                    <a href="https://github.com/YuginKysloff/abz-test" target="_blank">Исходники</a>
                 </div>
             </div>
         </div>

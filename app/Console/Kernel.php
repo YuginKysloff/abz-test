@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Vacancy;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,8 +25,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function () {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://api.hh.ru/vacancies?page=1&per_page=1');
+            curl_setopt($ch, CURLOPT_USERAGENT,'User-Agent: api-test-agent');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $vacancy = curl_exec($ch);
+            curl_close($ch);
+
+            Vacancy::create([
+                'city' => 'Donetsk',
+                'vacancy' => $vacancy
+            ]);
+        })->everyMinute();
     }
 
     /**

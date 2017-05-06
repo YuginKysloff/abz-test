@@ -63,6 +63,7 @@
                             создать структуру базы данных в MySQL Workbench и найти способ автоматически сгенерировать файлы миграции, приложить файл проекта из MySQL Workbench
                         </li>
                     </ol>
+                    <a href="https://github.com/YuginKysloff/abz-test" target="_blank">Исходники</a>
                 </div>
             </div>
         </div>

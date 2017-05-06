@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn btn-primary">Сохранить</button>
-                                    <a href="{{ url('/admin') }}" class="btn btn-primary">Назад</a>
+                                    <a href="{{ url('/admin/workers') }}" class="btn btn-primary">Назад</a>
                                 </div>
                             </div>
                         </form>

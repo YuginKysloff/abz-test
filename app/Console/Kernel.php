@@ -26,16 +26,21 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->call(function () {
+            $from = date('Y-m-dTG:i', (time() - 120));
+            $to = date('Y-m-dTG:i', time());
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, 'https://api.hh.ru/vacancies?page=1&per_page=1');
+            curl_setopt($ch, CURLOPT_URL, "https://api.hh.ru/vacancies?page=1&per_page=1&date_from=".$from."&date_to=".$to);
             curl_setopt($ch, CURLOPT_USERAGENT,'User-Agent: api-test-agent');
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $vacancy = curl_exec($ch);
+            $result = curl_exec($ch);
             curl_close($ch);
 
+            $vacancy = json_decode($result);
+
             Vacancy::create([
-                'city' => 'Donetsk',
-                'vacancy' => $vacancy
+                'name' => $vacancy->items[0]->name,
+                'city' => $vacancy->items[0]->area->name,
+                'vacancy' => $result
             ]);
         })->everyMinute();
     }

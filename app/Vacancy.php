@@ -12,6 +12,6 @@ class Vacancy extends Model
      * @var array
      */
     protected $fillable = [
-        'city', 'vacancy'
+        'name', 'city', 'vacancy'
     ];
 }

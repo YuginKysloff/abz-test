@@ -4,12 +4,20 @@ Route::get('/', function () {
     return view('resume');
 });
 
-//ForAbroad
-Route::group(['prefix' => 'abroad'], function() {
+// Leblav
+Route::group(['prefix' => 'leblav'], function() {
     Route::get('/task', function () {
-        return view('task_abroad');
-    })->name('taskAbroad');
+        return view('task_leblav');
+    })->name('taskLeblav');
+    Route::get('/rss', 'LeblavController@rss')->name('getRss');
 });
+
+
+
+//ForAbroad
+Route::get('/abroad/task', function () {
+    return view('task_abroad');
+})->name('taskAbroad');
 
 //2UP
 Route::group(['prefix' => '2up'], function() {

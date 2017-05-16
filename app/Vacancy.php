@@ -12,6 +12,6 @@ class Vacancy extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'city', 'vacancy'
+        'vacancy_id', 'vacancy_url', 'vacancy_name', 'requirement', 'responsibility', 'salary_from', 'salary_to', 'salary_currency', 'employer_id', 'employer_url', 'employer_name', 'city'
     ];
 }

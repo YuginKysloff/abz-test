@@ -15,9 +15,18 @@ class CreateVacanciesTable extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('city');
-            $table->json('vacancy');
+            $table->unsignedInteger('vacancy_id');
+            $table->string('vacancy_url');
+            $table->string('vacancy_name');
+            $table->text('requirement')->nullable();
+            $table->text('responsibility')->nullable();
+            $table->unsignedInteger('salary_from')->nullable();
+            $table->unsignedInteger('salary_to')->nullable();
+            $table->string('salary_currency', 3)->nullable();
+            $table->unsignedInteger('employer_id')->nullable();
+            $table->string('employer_url')->nullable();
+            $table->string('employer_name')->nullable();
+            $table->string('city')->nullable();
             $table->timestamps();
         });
     }

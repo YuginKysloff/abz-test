@@ -31,30 +31,13 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li {{ (Request::is('task_abz') ? 'class=active' : '') }}>
-                            <a href="{{ url('/task_abz') }}">Задание ABZ</a>
+                        <li class="dropdown {{ (Request::is('wks/*') ? 'active' : '') }}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для Leblav <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('taskLeblav') }}">Задание</a></li>
+                                <li><a href="{{ route('getRss') }}">RSS</a></li>
+                            </ul>
                         </li>
-                        <li {{ (Request::is('workers') ? 'class=active' : '') }}>
-                            <a href="{{ route('workersTree') }}">Сотрудники</a>
-                        </li>
-                        @if (Auth::guest())
-                            <li {{ (Request::is('login') ? 'class=active' : '') }}>
-                                <a href="{{ route('login') }}">Вход</a>
-                            </li>
-                        @else
-                            <li {{ (Request::is('admin/*') ? 'class=active' : '') }}>
-                                <a  href="{{ route('listWorkers') }}">Редактировать</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Выход
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
-                        @endif
-                        <li><a>|</a></li>
                         <li class="dropdown {{ (Request::is('wks/*') ? 'active' : '') }}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для WKS <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -79,6 +62,30 @@
                         <li>
                             <a href="http://seven.cs90443-magento.tw1.ru/" target="_blank">Для СМ</a>
                         </li>
+                        <li><a>|</a></li>
+                        <li {{ (Request::is('task_abz') ? 'class=active' : '') }}>
+                            <a href="{{ url('/task_abz') }}">Задание ABZ</a>
+                        </li>
+                        <li {{ (Request::is('workers') ? 'class=active' : '') }}>
+                            <a href="{{ route('workersTree') }}">Сотрудники</a>
+                        </li>
+                        @if (Auth::guest())
+                            <li {{ (Request::is('login') ? 'class=active' : '') }}>
+                                <a href="{{ route('login') }}">Вход</a>
+                            </li>
+                        @else
+                            <li {{ (Request::is('admin/*') ? 'class=active' : '') }}>
+                                <a  href="{{ route('listWorkers') }}">Редактировать</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Выход
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>

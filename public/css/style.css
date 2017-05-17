@@ -6,3 +6,7 @@
     padding: 6px;
     margin-bottom: 0;
 }
+
+.blog-post img{
+    max-width: 100%;
+}

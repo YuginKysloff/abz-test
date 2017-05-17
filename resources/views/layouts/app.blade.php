@@ -36,6 +36,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('taskLeblav') }}">Задание</a></li>
                                 <li><a href="{{ route('getRss') }}">RSS</a></li>
+                                <li><a href="{{ route('getToDo') }}">ToDo list</a></li>
                             </ul>
                         </li>
                         <li class="dropdown {{ (Request::is('wks/*') ? 'active' : '') }}">

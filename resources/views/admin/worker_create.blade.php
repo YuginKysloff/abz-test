@@ -28,7 +28,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="post">Выберите начальника</label>
+                                        <label for="boss">Выберите начальника</label>
                                         <select class="form-control" name="pid" id="boss">
                                             @foreach($bosses as $boss)
                                                 <option value="{{ $boss->id }}">{{ $boss->name }}</option>

@@ -10,9 +10,10 @@ Route::group(['prefix' => 'leblav'], function() {
         return view('task_leblav');
     })->name('taskLeblav');
     Route::get('/rss', 'LeblavController@rss')->name('getRss');
+    Route::get('/todo', 'LeblavController@toDoList')->name('getToDo');
+    Route::post('/store', 'LeblavController@store')->name('store');
+    Route::post('/destroy', 'LeblavController@destroy')->name('destroy');
 });
-
-
 
 //ForAbroad
 Route::get('/abroad/task', function () {

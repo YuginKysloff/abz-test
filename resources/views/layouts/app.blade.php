@@ -37,7 +37,7 @@
                                 <li><a href="{{ route('taskLeblav') }}">Задание</a></li>
                                 <li><a href="{{ route('getRss') }}">RSS</a></li>
                                 <li><a href="{{ route('toDoList') }}">ToDo list</a></li>
-                                <li><a href="{{ route('rentList') }}">Rent apartments</a></li>
+                                <li><a href="{{ route('flatList') }}">Rent apartments</a></li>
                             </ul>
                         </li>
                         <li class="dropdown {{ (Request::is('wks/*') ? 'active' : '') }}">

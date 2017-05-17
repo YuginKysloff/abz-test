@@ -18,8 +18,10 @@ Route::group(['prefix' => 'leblav'], function() {
         Route::post('/destroy', 'LeblavController@destroy')->name('destroy');
     });
     // Rent apartments
-    Route::group(['prefix' => 'rent'], function() {
-        Route::get('/list', 'LeblavController@rentList')->name('rentList');
+    Route::group(['prefix' => 'flats'], function() {
+        Route::get('/list', 'LeblavController@flatList')->name('flatList');
+        Route::get('/create', 'LeblavController@createFlat')->name('createFlat');
+        Route::post('/store', 'LeblavController@storeFlat')->name('storeFlat');
     });
 });
 

@@ -27,32 +27,27 @@ class LeblavController extends Controller
         if ($task) {
             $task->delete();
         }
-        return responce()->json(['id' => $request->id]);
+        return response()->json(['id' => $request->id]);
     }
 
     public function store(Request $request)
     {
-        if ($request->ajax()) {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
 
-            $this->validate($request, [
-                'name' => 'required|string|max:255',
-                'description' => 'required|string|max:255',
-            ]);
+        $data = $request->except('_token');
 
-            $data = $request->except('_token');
+        $task = new Task();
+        $task->fill($data);
 
-            $task = new Task();
-            $task->fill($data);
-
-            if($task->save()) {
-                session('success', 'Новый пользователь добавлен');
-                return response();
-            } else {
-                session('error', 'Ошибка добавления пользователя');
-                return response();
-            }
+        if($task->save()) {
+            session('success', 'Новый пользователь добавлен');
+            return response();
         } else {
-            abort(404);
+            session('error', 'Ошибка добавления пользователя');
+            return response();
         }
     }
 }

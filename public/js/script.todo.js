@@ -25,19 +25,18 @@ $('#form__submit-button').on('click', function() {
 });
 
 // Delete task
-$('#table__body').on('click', '.btn-danger', function() {
-    alert($(this).data('id'));
+function destroy(id) {
     $.ajax({
         url: '/leblav/destroy',
         cache: false,
         data: {
             '_token': $('meta[name=csrf-token]').attr('content'),
-            'id': $(this).data('id')
+            'id': id
         },
         type: "POST",
         dataType: "json",
         success: function (data) {
-            $('#modal__wrapper').html(data.html);
-        },
+            $('#task'+data.id).hide();
+        }
     });
-});
+}

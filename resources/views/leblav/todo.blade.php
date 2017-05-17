@@ -54,7 +54,7 @@
                                             </td>
                                             <td>{{ $task->updated_at }}</td>
                                             <td>
-                                                <button class="btn btn-xs btn-danger" data-id="{{ $task->id }}" title="Удалить задачу">Удалить</button>
+                                                <button class="btn btn-xs btn-danger" onclick="if(confirm('Вы действительно хотите удалить запись?')) destroy({{ $task->id }});" title="Удалить задачу">Удалить</button>
                                             </td>
                                         </tr>
                                     @endforeach

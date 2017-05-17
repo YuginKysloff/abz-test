@@ -23,7 +23,6 @@ class LeblavController extends Controller
     public function destroy(Request $request)
     {
         $task = Task::find($request->id);
-
         if ($task) {
             $task->delete();
         }
@@ -38,7 +37,6 @@ class LeblavController extends Controller
         ]);
 
         $data = $request->except('_token');
-
         $task = new Task();
         $task->fill($data);
 
@@ -47,7 +45,13 @@ class LeblavController extends Controller
         } else {
             $answer = ['status' => 'error', 'message' => 'Ошибка добавления'];
         }
+
         $view['html'] = view('vidgets.message', $answer)->render();
         return response()->json($view);
+    }
+
+    public function rentList()
+    {
+        return view('leblav.rent');
     }
 }

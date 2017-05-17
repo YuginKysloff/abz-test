@@ -2,7 +2,7 @@
 $('#form__submit-button').on('click', function() {
     // alert();
     $.ajax({
-        url: '/leblav/store',
+        url: '/leblav/todo/store',
         cache: false,
         data: jQuery("#form__create").serialize(),
         type: "POST",
@@ -23,7 +23,7 @@ $('#form__submit-button').on('click', function() {
 // Delete task
 function destroy(id) {
     $.ajax({
-        url: '/leblav/destroy',
+        url: '/leblav/todo/destroy',
         cache: false,
         data: {
             '_token': $('meta[name=csrf-token]').attr('content'),

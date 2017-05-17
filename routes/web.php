@@ -7,12 +7,20 @@ Route::get('/', function () {
 // Leblav
 Route::group(['prefix' => 'leblav'], function() {
     Route::get('/task', function () {
-        return view('task_leblav');
+        return view('leblav/task_leblav');
     })->name('taskLeblav');
+    // RSS
     Route::get('/rss', 'LeblavController@rss')->name('getRss');
-    Route::get('/todo', 'LeblavController@toDoList')->name('getToDo');
-    Route::post('/store', 'LeblavController@store')->name('store');
-    Route::post('/destroy', 'LeblavController@destroy')->name('destroy');
+    // To do list
+    Route::group(['prefix' => 'todo'], function() {
+        Route::get('/list', 'LeblavController@toDoList')->name('toDoList');
+        Route::post('/store', 'LeblavController@store')->name('store');
+        Route::post('/destroy', 'LeblavController@destroy')->name('destroy');
+    });
+    // Rent apartments
+    Route::group(['prefix' => 'rent'], function() {
+        Route::get('/list', 'LeblavController@rentList')->name('rentList');
+    });
 });
 
 //ForAbroad

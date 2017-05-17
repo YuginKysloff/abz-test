@@ -43,11 +43,11 @@ class LeblavController extends Controller
         $task->fill($data);
 
         if($task->save()) {
-            session('success', 'Новый пользователь добавлен');
-            return response();
+            $answer = ['status' => 'success', 'message' => 'Новая задача добавлена'];
         } else {
-            session('error', 'Ошибка добавления пользователя');
-            return response();
+            $answer = ['status' => 'error', 'message' => 'Ошибка добавления'];
         }
+        $view['html'] = view('vidgets.message', $answer)->render();
+        return response()->json($view);
     }
 }

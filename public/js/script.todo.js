@@ -8,18 +8,14 @@ $('#form__submit-button').on('click', function() {
         type: "POST",
         dataType: "json",
         success: function (data) {
-            alert('success');
-            var temp = jQuery.parseJSON(data);
-            console.log(temp);
-            // $('h1').html(data);
+            $('#message').html(data.html);
+            $('#Modal').modal('hide');
         },
         error: function(data) {
-            alert('error');
-            var temp = jQuery.parseJSON(data);
-            console.log(temp);
-        },
-        complete: function () {
-            $('#Modal').modal('hide');
+            // console.log(data.responseJSON);
+            $.each(data.responseJSON, function(i, val) {
+                $('#'+i).after(val);
+            });
         }
     });
 });

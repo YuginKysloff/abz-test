@@ -36,6 +36,7 @@ Route::group(['prefix' => '2up'], function() {
         return view('task_2up');
     })->name('task2UP');
     Route::get('/vacancies', 'VacanciesController@index')->name('vacancies');
+    Route::post('/status', 'VacanciesController@toggleStatus')->name('status');
 });
 
 // WKS

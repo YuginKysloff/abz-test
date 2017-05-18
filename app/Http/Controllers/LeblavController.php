@@ -86,10 +86,8 @@ class LeblavController extends Controller
             );
         }
 
-        // Store new worker
         $flat = new Flat();
         $flat->fill($data);
-
         if($flat->save()) {
             return redirect()->route('flatList')->with('success', 'Новое объявление добавлено');
         } else {

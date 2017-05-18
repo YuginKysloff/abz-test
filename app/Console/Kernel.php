@@ -2,8 +2,8 @@
 
 namespace App\Console;
 
+use App\Parser;
 use App\Vacancy;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,77 +28,78 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
 
-            $from = date('Y-m-d\TH:i:s', (time() - 290));
-            $to = date('Y-m-d\TH:i:s', time());
+            // Get parser data from DB
+            $parser = Parser::where('status', 1)->first();
 
-            DB::table('info')->insert(
-                ['date_from' => $from, 'date_to' => $to, 'url' => 0]
-            );
+            if($parser) {
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://api.hh.ru/vacancies?page=0&per_page=200&date_from=$from&date_to=$to");
-            curl_setopt($ch, CURLOPT_USERAGENT,'User-Agent: api-test-agent');
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $result = curl_exec($ch);
-            curl_close($ch);
+                // Set time period for parsing
+                $from = date('Y-m-d\TH:i:s', (time() - 55));
+                $to = date('Y-m-d\TH:i:s', time());
 
-            $vacancies = json_decode($result);
+                // Get vacancies from donor
+                $data = $this->getVacancies($parser->url, $from, $to, 0, 200);
 
-            foreach($vacancies->items as $vacancy) {
-                Vacancy::create([
-                    'vacancy_id' => $vacancy->id,
-                    'vacancy_url' => $vacancy->alternate_url,
-                    'vacancy_name' => $vacancy->name,
-                    'requirement' => $vacancy->snippet->requirement,
-                    'responsibility' => $vacancy->snippet->responsibility,
-                    'salary_from' => $vacancy->salary->from ?? null,
-                    'salary_to' => $vacancy->salary->to ?? null,
-                    'salary_currency' => $vacancy->salary->currency ?? null,
-                    'employer_id' => $vacancy->employer->id,
-                    'employer_url' => $vacancy->employer->alternate_url,
-                    'employer_name' => $vacancy->employer->name,
-                    'city' => $vacancy->area->name,
-                ]);
-            }
+                if($data) {
 
-            if($vacancies->pages > 0) {
-                for($i = 1; $i <= $vacancies->pages; $i++) {
+                    // Insert vacancies into DB
+                    $this->insertVacancies($data);
 
-                    DB::table('info')->insert(
-                        ['date_from' => $from, 'date_to' => $to, 'url' => $i]
-                    );
+                    if($data->pages > 0) {
 
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, "https://api.hh.ru/vacancies?page=$i&per_page=200&date_from=$from&date_to=$to");
-                    curl_setopt($ch, CURLOPT_USERAGENT,'User-Agent: api-test-agent');
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    $result = curl_exec($ch);
-                    curl_close($ch);
+                        //Get and insert vacancies if isset more pages
+                        for($i = 1; $i <= $data->pages; $i++) {
 
-                    $vacancies = json_decode($result);
+                            $result = $this->getVacancies($parser->url, $from, $to, $i, 200);
 
-                    foreach($vacancies->items as $vacancy) {
-                        Vacancy::create([
-                            'vacancy_id' => $vacancy->id,
-                            'vacancy_url' => $vacancy->alternate_url,
-                            'vacancy_name' => $vacancy->name,
-                            'requirement' => $vacancy->snippet->requirement,
-                            'responsibility' => $vacancy->snippet->responsibility,
-                            'salary_from' => $vacancy->salary->from ?? null,
-                            'salary_to' => $vacancy->salary->to ?? null,
-                            'salary_currency' => $vacancy->salary->currency ?? null,
-                            'employer_id' => $vacancy->employer->id,
-                            'employer_url' => $vacancy->employer->alternate_url,
-                            'employer_name' => $vacancy->employer->name,
-                            'city' => $vacancy->area->name,
-                        ]);
+                            if($result) {
+                                $this->insertVacancies($result);
+                            }
+                        }
                     }
                 }
+                Parser::increment('sessions');
             }
-
-        })->everyFiveMinutes()->when(function () {
-            return config('parser.enable');
+        })->everyMinute()->when(function () {
+            return true;
         });
+    }
+
+    private function getVacancies($url, $from, $to, $page, $perPage)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "$url?page=$page&per_page=$perPage&date_from=$from&date_to=$to");
+        curl_setopt($ch, CURLOPT_USERAGENT,'User-Agent: api-test-agent');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($result);
+    }
+
+    private function insertVacancies($data)
+    {
+        $vacancies = collect();
+        foreach($data->items as $item) {
+            $date = date('Y-m-d H:i:s');
+            $vacancies->push([
+                'vacancy_id' => $item->id,
+                'vacancy_url' => $item->alternate_url,
+                'vacancy_name' => $item->name,
+                'requirement' => $item->snippet->requirement,
+                'responsibility' => $item->snippet->responsibility,
+                'salary_from' => $item->salary->from ?? null,
+                'salary_to' => $item->salary->to ?? null,
+                'salary_currency' => $item->salary->currency ?? null,
+                'employer_id' => $item->employer->id ?? null,
+                'employer_url' => $item->employer->alternate_url ?? null,
+                'employer_name' => $item->employer->name ?? null,
+                'city' => $item->area->name,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ]);
+        }
+        return Vacancy::insert($vacancies->toArray());
     }
 
     /**

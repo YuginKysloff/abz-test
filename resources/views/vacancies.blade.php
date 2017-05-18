@@ -11,8 +11,13 @@
                 <h1 class="page-header">Список вакансий</h1>
                 <div class="row">
                     <div class="col-sm-6">
-                        <button class="btn btn-success" type="button" id="button__random">Парсер включен</button>
-                        <span class="text-success"> Получено вакансий : 50 000 </span>
+                        @if(config('parser.status', false))
+                            <button class="btn btn-warning" data-status="1" type="button" id="parser__button">Парсер включен</button>
+                        @else
+                            <button class="btn btn-success" data-status="0" type="button" id="parser__button">Парсер выключен</button>
+                        @endif
+                            <span class="text-success"> Запусков парсера : {{ $data['parser']->sessions }} </span>
+                        <span class="text-success"> Получено вакансий : {{ $data['vacancies']->total() }} </span>
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -36,28 +41,37 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Должность</th>
+                                        {{--<th>ID</th>--}}
                                         <th>Город</th>
-                                        <th>Дата создания</th>
+                                        <th>Компания</th>
+                                        <th>Должность</th>
+                                        <th>Ссылка</th>
+                                        <th>Дата</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($vacancies as $vacancy)
+                                    @foreach($data['vacancies'] as $vacancy)
                                         <tr>
-                                            <td>{{ $vacancy->id }}</td>
-                                            <td>{{ $vacancy->name }}</td>
+                                            {{--<td>{{ $vacancy->vacancy_id }}</td>--}}
                                             <td>{{ $vacancy->city }}</td>
-                                            <td>{{ $vacancy->created_at }}</td>
+                                            <td>{{ $vacancy->employer_name }}</td>
+                                            <td>{{ $vacancy->vacancy_name }}</td>
+                                            <td><a href="{{ $vacancy->vacancy_url }}" target="_blank">{{ $vacancy->vacancy_url }}</a></td>
+                                            <td>{{ date('d/m/Y', strtotime($vacancy->created_at)) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $vacancies->links() }}
+                            {{ $data['vacancies']->links() }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    @parent
+    <script src="{{ asset('js/script.vacancies.js') }}"></script>
 @endsection

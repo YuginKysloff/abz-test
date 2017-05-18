@@ -10,14 +10,15 @@
                 </div>
                 <h1 class="page-header">Список вакансий</h1>
                 <div class="row">
-                    <div class="col-sm-6">
-                        @if(config('parser.status', false))
-                            <button class="btn btn-warning" data-status="1" type="button" id="parser__button">Парсер включен</button>
+                    <div class="col-sm-10">
+                        @if($data['parser']->status)
+                            <button class="btn btn-warning" data-status="0" type="button" id="parser__button">Парсер включен</button>
                         @else
-                            <button class="btn btn-success" data-status="0" type="button" id="parser__button">Парсер выключен</button>
+                            <button class="btn btn-success" data-status="1" type="button" id="parser__button">Парсер выключен</button>
                         @endif
-                            <span class="text-success"> Запусков парсера : {{ $data['parser']->sessions }} </span>
                         <span class="text-success"> Получено вакансий : {{ $data['vacancies']->total() }} </span>
+                        <span class="text-success"> Запусков парсера : {{ $data['parser']->sessions }} </span>
+                        <span class="text-success"> Последний запуск : {{ date('d-m-Y H:i:s', strtotime($data['parser']->updated_at)) }} </span>
                     </div>
                 </div>
                 <div class="panel panel-default">

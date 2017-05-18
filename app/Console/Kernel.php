@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
             if($parser) {
 
                 // Set time period for parsing
-                $from = date('Y-m-d\TH:i:s', (time() - 55));
+                $from = date('Y-m-d\TH:i:s', (time() - 290));
                 $to = date('Y-m-d\TH:i:s', time());
 
                 // Get vacancies from donor
@@ -60,9 +60,7 @@ class Kernel extends ConsoleKernel
                 }
                 Parser::increment('sessions');
             }
-        })->everyMinute()->when(function () {
-            return true;
-        });
+        })->everyFiveMinutes();
     }
 
     private function getVacancies($url, $from, $to, $page, $perPage)

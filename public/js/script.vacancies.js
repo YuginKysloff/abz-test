@@ -13,7 +13,7 @@ $('#parser__button').on('click', function() {
             // alert(data.status);
             $('#parser__button').attr('data-status', data.status);
             if(data.status == 1) {
-                $('#parser__button').attr('class','btn btn-success').text('Парсер выключен');
+                $('#parser__button').attr('class','btn btn-default').text('Парсер выключен');
             } else {
                 $('#parser__button').attr('class','btn btn-warning').text('Парсер включен');
             }

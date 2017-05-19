@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class VacanciesController extends Controller
 {
+    /**
+     * Vacanciesw list
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $data['parser'] = Parser::where('id', 1)->first();
@@ -15,6 +19,11 @@ class VacanciesController extends Controller
         return view('vacancies', compact('data'));
     }
 
+    /**
+     * Toggle parser status
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function toggleStatus(Request $request)
     {
         // Validate status

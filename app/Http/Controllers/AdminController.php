@@ -16,36 +16,32 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $searchPhrase = $request->search['value'];
-            $orderColumn = $request->columns[$request->order[0]['column']]['name'];
-            $orderDirection = $request->order[0]['dir'];
+        $searchPhrase = $request->search['value'];
+        $orderColumn = $request->columns[$request->order[0]['column']]['name'];
+        $orderDirection = $request->order[0]['dir'];
 
-            //Generate api answer
-            $answer['draw'] = $request->draw;
+        //Generate api answer
+        $answer['draw'] = $request->draw;
 
-            // Get workers list with pagination, ordering and searching
-            $answer['data'] = Worker::with('post')->
-                when($searchPhrase, function($query) use($searchPhrase) {
-                    return $query->where('name', 'like', '%'.$searchPhrase.'%');
-                })->
-                orderBy($orderColumn, $orderDirection)->
-                limit($request->length)->
-                offset($request->start)->
-                get();
+        // Get workers list with pagination, ordering and searching
+        $answer['data'] = Worker::with('post')->
+            when($searchPhrase, function($query) use($searchPhrase) {
+                return $query->where('name', 'like', '%'.$searchPhrase.'%');
+            })->
+            orderBy($orderColumn, $orderDirection)->
+            limit($request->length)->
+            offset($request->start)->
+            get();
 
-            // Count total records
-            $answer['recordsTotal'] = Worker::count();
+        // Count total records
+        $answer['recordsTotal'] = Worker::count();
 
-            // Count records involved in query
-            $answer['recordsFiltered'] = Worker::when($searchPhrase, function($query) use($searchPhrase) {
-                    return $query->where('name', 'like', '%'.$searchPhrase.'%');
-                })->count();
+        // Count records involved in query
+        $answer['recordsFiltered'] = Worker::when($searchPhrase, function($query) use($searchPhrase) {
+                return $query->where('name', 'like', '%'.$searchPhrase.'%');
+            })->count();
 
-            return response()->json($answer);
-        } else {
-            abort(404);
-        }
+        return response()->json($answer);
     }
 
     /**

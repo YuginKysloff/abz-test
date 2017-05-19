@@ -35,7 +35,8 @@ Route::group(['prefix' => '2up'], function() {
     Route::get('/task', function () {
         return view('task_2up');
     })->name('task2UP');
-    Route::get('/vacancies', 'VacanciesController@index')->name('vacancies');
+    Route::get('/vacancies', 'VacanciesController@index')->name('listVacancies');
+    Route::post('/vacancies', 'VacanciesController@getVacancies')->name('getVacancies');
     Route::post('/status', 'VacanciesController@toggleStatus')->name('status');
 });
 

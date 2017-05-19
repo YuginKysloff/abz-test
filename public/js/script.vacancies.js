@@ -20,3 +20,45 @@ $('#parser__button').on('click', function() {
         }
     });
 });
+
+//Startup settings for dataTable plugin
+$.extend( $.fn.dataTable.defaults, {
+    language: {
+        "processing": "Подождите...",
+        "search": "Поиск:",
+        "lengthMenu": "Показать _MENU_ записей",
+        "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+        "infoEmpty": "Записи с 0 до 0 из 0 записей",
+        "infoFiltered": "(отфильтровано из _MAX_ записей)",
+        "infoPostFix": "",
+        "loadingRecords": "Загрузка записей...",
+        "zeroRecords": "Записи отсутствуют.",
+        "emptyTable": "В таблице отсутствуют данные",
+        "paginate": {
+            "first": "Первая",
+            "previous": "Предыдущая",
+            "next": "Следующая",
+            "last": "Последняя"
+        },
+        "aria": {
+            "sortAscending": ": активировать для сортировки столбца по возрастанию",
+            "sortDescending": ": активировать для сортировки столбца по убыванию"
+        }
+    }
+});
+
+function parseDate(input,flag)
+{
+    switch(flag){
+        case "P_DATE":
+            st = input.split(/(\d+)\-(\d+)\-(\d+)/);
+            output=st[3]+'.'+st[2]+'.'+st[1];
+            return output;
+        case "P_DATETIME":
+            st = input.split(/(\d+)\-(\d+)\-(\d+)\ (\d+)\:(\d+)\:(\d+)/);
+            output=st[3]+'.'+st[2]+'.'+st[1]+' '+st[4]+':'+st[5];
+            return output;
+        default:
+            return "01.01.2000 00:00";
+    }
+}

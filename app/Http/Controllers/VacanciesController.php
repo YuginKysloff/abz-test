@@ -14,9 +14,37 @@ class VacanciesController extends Controller
      */
     public function index()
     {
-        $data['parser'] = Parser::where('id', 1)->first();
-        $data['vacancies'] = Vacancy::orderBy('created_at', 'desc')->paginate(10);
-        return view('vacancies', compact('data'));
+        $parser = Parser::where('id', 1)->first();
+        return view('vacancies', compact('parser'));
+    }
+
+    public function getVacancies(Request $request)
+    {
+        $searchPhrase = $request->search['value'];
+        $orderColumn = $request->columns[$request->order[0]['column']]['name'];
+        $orderDirection = $request->order[0]['dir'];
+
+        //Generate api answer
+        $answer['draw'] = $request->draw;
+
+        // Get vacancies list with pagination, ordering and searching
+        $answer['data'] = Vacancy::when($searchPhrase, function($query) use($searchPhrase) {
+            return $query->where('city', 'like', '%'.$searchPhrase.'%');
+        })->
+        orderBy($orderColumn, $orderDirection)->
+        limit($request->length)->
+        offset($request->start)->
+        get();
+
+        // Count total records
+        $answer['recordsTotal'] = Vacancy::count();
+
+        // Count records involved in query
+        $answer['recordsFiltered'] = Vacancy::when($searchPhrase, function($query) use($searchPhrase) {
+            return $query->where('city', 'like', '%'.$searchPhrase.'%');
+        })->count();
+
+        return response()->json($answer);
     }
 
     /**

@@ -31,7 +31,14 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown {{ (Request::is('wks/*') ? 'active' : '') }}">
+                        <li class="dropdown {{ (Request::is('2up/*') ? 'active' : '') }}">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для 2UP <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('task2UP') }}">Задание</a></li>
+                                <li><a href="{{ route('listVacancies') }}">Вакансии</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown {{ (Request::is('leblav/*') ? 'active' : '') }}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для Leblav <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('taskLeblav') }}">Задание</a></li>
@@ -52,13 +59,6 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('taskAbroad') }}">Task</a></li>
                                 <li><a href="http://cs90443-magento.tw1.ru/" target="_blank">Vocabulary</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown {{ (Request::is('2up/*') ? 'active' : '') }}">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Для 2UP <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('task2UP') }}">Задание</a></li>
-                                <li><a href="{{ route('vacancies') }}">Вакансии</a></li>
                             </ul>
                         </li>
                         <li>

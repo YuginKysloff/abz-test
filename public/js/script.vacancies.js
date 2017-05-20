@@ -21,11 +21,31 @@ $('#parser__button').on('click', function() {
     });
 });
 
+// get vacancy info in the modal window
+$('#vacancies_list').on('click', '.vacancy_name', function() {
+    $.ajax({
+        url: '/2up/show',
+        cache: false,
+        data: {
+            '_token': $('meta[name=csrf-token]').attr('content'),
+            'id': $(this).closest('tr').attr('id')
+        },
+        type: "POST",
+        dataType: "json",
+        success: function (data) {
+            $('#modal__wrapper').html(data.html);
+        },
+        complete: function () {
+            $('#Modal').modal('show');
+        }
+    });
+});
+
 //Startup settings for dataTable plugin
 $.extend( $.fn.dataTable.defaults, {
     language: {
         "processing": "Подождите...",
-        "search": "Поиск:",
+        "search": "Поиск по городу:",
         "lengthMenu": "Показать _MENU_ записей",
         "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
         "infoEmpty": "Записи с 0 до 0 из 0 записей",

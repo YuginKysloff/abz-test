@@ -69,4 +69,23 @@ class VacanciesController extends Controller
 
         return response()->json($data);
     }
+
+    /**
+     * Display the specified resource by ajax.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request)
+    {
+        // Get data of given worker
+        $vacancy = Vacancy::where('id', $request->id)->
+        first();
+
+        // Generate view with info about given worker
+        $view['html'] = view('vacancy_info', compact('vacancy'))->render();
+
+        // Return generated view
+        return response()->json($view);
+    }
 }

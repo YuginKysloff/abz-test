@@ -2,7 +2,7 @@
 
 @section('head')
     @parent
-    <link href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 @endsection
 
@@ -62,7 +62,7 @@
 
 @section('scripts')
     @parent
-    <script src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('js/script.js') }}"></script>
     <script>
         $(document).ready( function () {

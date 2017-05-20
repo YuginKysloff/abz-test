@@ -36,6 +36,7 @@ class Kernel extends ConsoleKernel
                 // Set time period for parsing
                 $from = date('Y-m-d\TH:i:s', (time() - 290));
                 $to = date('Y-m-d\TH:i:s', time());
+                $count = 0;
 
                 // Get vacancies from donor
                 $data = $this->getVacancies($parser->url, $from, $to, 0, 200);
@@ -43,7 +44,7 @@ class Kernel extends ConsoleKernel
                 if($data) {
 
                     // Insert vacancies into DB
-                    $this->insertVacancies($data);
+                    $count += $this->insertVacancies($data);
 
                     if($data->pages > 0) {
 
@@ -53,12 +54,18 @@ class Kernel extends ConsoleKernel
                             $result = $this->getVacancies($parser->url, $from, $to, $i, 200);
 
                             if($result) {
-                                $this->insertVacancies($result);
+                                $count += $this->insertVacancies($result);
                             }
                         }
                     }
                 }
-                Parser::increment('sessions');
+                $result = [
+                    'sessions' => $parser->sessions + 1,
+                    'new' => $count,
+                    'total' => $parser->total + $count,
+                ];
+                Parser::where('id', $parser->id)->update($result);
+//                Parser::increment('sessions');
             }
         })->everyFiveMinutes();
     }
@@ -78,8 +85,10 @@ class Kernel extends ConsoleKernel
     private function insertVacancies($data)
     {
         $vacancies = collect();
+        $count = 0;
         foreach($data->items as $item) {
             $date = date('Y-m-d H:i:s');
+            $count++;
             $vacancies->push([
                 'vacancy_id' => $item->id,
                 'vacancy_url' => $item->alternate_url,
@@ -97,7 +106,9 @@ class Kernel extends ConsoleKernel
                 'updated_at' => $date,
             ]);
         }
-        return Vacancy::insert($vacancies->toArray());
+        Vacancy::insert($vacancies->toArray());
+
+        return $count;
     }
 
     /**

@@ -17,6 +17,8 @@ class CreateParsersTable extends Migration
             $table->increments('id');
             $table->string('url');
             $table->unsignedInteger('sessions')->default(0);
+            $table->unsignedInteger('new')->default(0);
+            $table->unsignedInteger('total')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

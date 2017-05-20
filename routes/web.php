@@ -38,6 +38,7 @@ Route::group(['prefix' => '2up'], function() {
     Route::get('/vacancies', 'VacanciesController@index')->name('listVacancies');
     Route::post('/vacancies', 'VacanciesController@getVacancies')->name('getVacancies');
     Route::post('/status', 'VacanciesController@toggleStatus')->name('status');
+    Route::post('/show', 'VacanciesController@show')->name('showVacancy');
 });
 
 // WKS

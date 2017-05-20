@@ -10,10 +10,6 @@
     <div class="container theme-showcase" role="main">
         <div class="row">
             <div class="main">
-                <div class="alert alert-danger fade in">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>В разработке</strong>
-                </div>
                 <h1 class="page-header">Список вакансий</h1>
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -25,10 +21,10 @@
                                     @else
                                         <button class="btn btn-default" data-status="1" type="button" id="parser__button">Парсер выключен</button>
                                     @endif
-                                    <span class="text-success"> Запусков парсера : <span class="badge">{{ $parser->sessions }}</span> </span>
-                                        <span class="text-success"> Новых вакансий: <span class="badge">{{ $parser->new }}</span> </span>
-                                        <span class="text-success"> Всего вакансий : <span class="badge">{{ $parser->total }}</span> </span>
-                                        <span class="text-success"> Последний запуск : <span class="badge">{{ date('d-m-Y H:i:s', strtotime($parser->updated_at)) }}</span> </span>
+                                    <span class="text-success"> Запусков парсера : <span class="badge"> {{ $parser->sessions }}</span> </span>
+                                        <span class="text-success"> Новых вакансий : <span class="badge"> {{ $parser->new }}</span> </span>
+                                        <span class="text-success"> Всего вакансий : <span class="badge"> {{ $parser->total }}</span> </span>
+                                        <span class="text-success"> Последний запуск : <span class="badge"> {{ date('d-m-Y H:i:s', strtotime($parser->updated_at)) }}</span> </span>
                                 </div>
                             </div>
                             <table id="vacancies" class="table table-striped table-hover">

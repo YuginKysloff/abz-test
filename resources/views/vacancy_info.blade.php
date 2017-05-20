@@ -12,8 +12,12 @@
                         <p><strong>Компания: </strong> <a href="{{ $vacancy->employer_url }}" target="_blank">{{ $vacancy->employer_name }}</a></p>
                         <p><strong>Город: </strong> {{ $vacancy->city }}</p>
                         <hr>
-                        <p><strong>Обязанности: </strong> {{ $vacancy->responsibility }}</p>
-                        <p><strong>Требования: </strong> {{ $vacancy->requirement }}</p>
+                        @if($vacancy->responsibility)
+                            <p><strong>Обязанности: </strong> {{ $vacancy->responsibility }}</p>
+                        @endif
+                        @if($vacancy->requirement)
+                            <p><strong>Требования: </strong> {{ $vacancy->requirement }}</p>
+                        @endif
                         @if($vacancy->salary_from || $vacancy->salary_to)
                             <p><strong>Зарплата: </strong>
                                 @if($vacancy->salary_from)
